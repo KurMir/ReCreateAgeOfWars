@@ -6,6 +6,8 @@ TagManager:
   tags:
   - P1
   - P2
+  - Sword1
+  - Sword2
   layers:
   - Default
   - TransparentFX
