@@ -10,8 +10,10 @@ public class PlayerSpawnScript : MonoBehaviour
   public bool isCoolDown;
   void Start()
   {
-    isCoolDown = true;
+    //isCoolDown = true;
     cooldownTimer = cooldownTime;
+    isCoolDown = true;
+    Instantiate(spawns[0], this.transform.position, Quaternion.identity);
   }
 
   void Update()
@@ -30,9 +32,9 @@ public class PlayerSpawnScript : MonoBehaviour
       {
 
         isCoolDown = false;
-        cooldownTimer = cooldownTime;
-        Instantiate(spawns[0], this.transform.position, Quaternion.identity);
-        isCoolDown = true;
+        //cooldownTimer = cooldownTime;
+        Instantiate(spawns[1], this.transform.position, Quaternion.identity);
+        //isCoolDown = true;
 
       }
     }

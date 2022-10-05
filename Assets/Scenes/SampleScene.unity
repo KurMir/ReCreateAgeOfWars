@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 328817450}
   - component: {fileID: 328817449}
   m_Layer: 6
-  m_Name: TestObject
+  m_Name: TestBlueTeamObject
   m_TagString: P1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1110,6 +1110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawns:
   - {fileID: 759017168092724137, guid: c7c86b56db5b94ed5960b118bf4aeec0, type: 3}
+  - {fileID: 8996742237064746808, guid: 1cd5be0fea0a96c4ba45da6c853df272, type: 3}
   cooldownTime: 8
   isCoolDown: 0
 --- !u!1 &1088703055
@@ -2220,3 +2221,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &5118060166567344448
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -61.587
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 32.995
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792961113302617192, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794614661102208454, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}
+      propertyPath: m_Name
+      value: Spearman
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 05261b0efa4e0c34283704b51e076afa, type: 3}

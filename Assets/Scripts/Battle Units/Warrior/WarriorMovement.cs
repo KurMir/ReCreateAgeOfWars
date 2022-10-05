@@ -13,7 +13,7 @@ public class WarriorMovement : MonoBehaviour
   private float moveSpeed;
   private Vector2 direction;
   private float directionNumber;
-  public Vector2 test;
+  
   [Header("GameObjects/Transforms")]
   public GameObject enemyRaycastObject;
   public GameObject allyRaycastObject;
@@ -77,7 +77,7 @@ public class WarriorMovement : MonoBehaviour
       if (this.gameObject.tag == "P2") { EnemyHit.distance = -EnemyHit.distance; } // For Test/Debug
       Debug.DrawRay(enemyRaycastObject.transform.position, direction * EnemyHit.distance * new Vector2(directionNumber, 0f), Color.red);
       moveSpeed = 0f;
-      warriorAttack();
+      MeleeAttack();
     }
     else
     {
@@ -87,15 +87,14 @@ public class WarriorMovement : MonoBehaviour
       }
 
     }
-    warriorMove(moveSpeed);
+    WarriorMove(moveSpeed);
   }
-  void warriorMove(float move)
+  void WarriorMove(float move)
   {
-    rb.velocity = new Vector2(moveSpeed, 0f);
-    test = rb.velocity;
+    rb.velocity = new Vector2(move, 0f);
     //transform.Translate(new Vector2(1f, 0f) * move * Time.deltaTime);
   }
-  void warriorAttack()
+  void MeleeAttack()
   {
 
   }
