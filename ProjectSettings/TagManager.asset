@@ -10,6 +10,8 @@ TagManager:
   - Sword2
   - Arrow1
   - Arrow2
+  - Spawn1
+  - Spawn2
   layers:
   - Default
   - TransparentFX

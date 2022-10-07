@@ -311,9 +311,9 @@ MonoBehaviour:
   enemyRaycastObject: {fileID: 6521261633007428724}
   allyRaycastObject: {fileID: 6521261632868468220}
   enemyInRangeRaycastObject: {fileID: 6521261632221240402}
-  enemyRayDistance: 0.35
-  allyRayDistance: 0.4
-  enemyInRangeRayDistance: 3
+  enemyRayDistance: 0.25
+  allyRayDistance: 0.85
+  enemyInRangeRayDistance: 4.2
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 8

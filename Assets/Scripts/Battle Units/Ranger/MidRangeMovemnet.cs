@@ -77,9 +77,11 @@ public class MidRangeMovemnet : MonoBehaviour
       if (this.gameObject.tag == "P2") { EnemyInRangeHit.distance = -EnemyInRangeHit.distance; } // For Test/Debug
       Debug.DrawRay(enemyInRangeRaycastObject.transform.position, direction * EnemyInRangeHit.distance * new Vector2(directionNumber, 0f), Color.green);
       isAttackingRange = true;
-      if(!enemyOccupied){
-        if(isAttackingRange){
-        ArcherAttack();
+      if (!enemyOccupied)
+      {
+        if (isAttackingRange)
+        {
+          ArcherAttack();
         }
       }
     }
@@ -116,7 +118,8 @@ public class MidRangeMovemnet : MonoBehaviour
       Debug.DrawRay(enemyRaycastObject.transform.position, direction * EnemyHit.distance * new Vector2(directionNumber, 0f), Color.red);
       moveSpeed = 0f;
       enemyOccupied = true;
-      if (enemyOccupied){
+      if (enemyOccupied)
+      {
         MeleeAttack();
       }
     }
@@ -137,46 +140,54 @@ public class MidRangeMovemnet : MonoBehaviour
     rb.velocity = new Vector2(move, 0f);
   }
 
-  void ArcherAttack(){
+  void ArcherAttack()
+  {
     attkCooldownTimer -= Time.deltaTime;
-    if (attkCooldownTimer <= 0.0f){
+    if (attkCooldownTimer <= 0.0f)
+    {
       isReadyToShoot = true;
       arrowWaitTimer = arrowWaitTime;
-      
+
       attkCooldownTimer = attackCooldownTime;
       Animator anim = archerUnit.GetComponent<Animator>();
       anim.SetTrigger("RangeAttack");
     }
   }
 
-  void ArrowWaitCooldown() {
-    if(isReadyToShoot){
+  void ArrowWaitCooldown()
+  {
+    if (isReadyToShoot)
+    {
       arrowWaitTimer -= Time.deltaTime;
-      if (arrowWaitTimer <= 0.0f){
-      Instantiate(Arrow, ArrowAttackPoint.position, Quaternion.identity);
-      isReadyToShoot = false;
+      if (arrowWaitTimer <= 0.0f)
+      {
+        Instantiate(Arrow, ArrowAttackPoint.position, Quaternion.identity);
+        isReadyToShoot = false;
       }
     }
-    
-    
+
+
   }
 
-  void MeleeAttack(){
-     meleeAttkCooldownTimer -= Time.deltaTime;
-    if (meleeAttkCooldownTimer <= 0.0f){
+  void MeleeAttack()
+  {
+    meleeAttkCooldownTimer -= Time.deltaTime;
+    if (meleeAttkCooldownTimer <= 0.0f)
+    {
       meleeAttkCooldownTimer = meleeAttackCooldownTime;
       Animator anim = archerUnit.GetComponent<Animator>();
       anim.SetTrigger("Attack");
       Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayerMask);
 
-      foreach (Collider2D enemy in hitEnemies){
-       enemy.GetComponent<DamageScript>().DamageDealt(2f);
+      foreach (Collider2D enemy in hitEnemies)
+      {
+        enemy.GetComponent<DamageScript>().DamageDealt(2f);
       }
     }
   }
 
   void OnDrawGizmosSelected() //Drawing Gizmos
-  { 
+  {
     if (AttackPoint == null)
       return;
     Gizmos.DrawWireSphere(AttackPoint.position, attackRange);
