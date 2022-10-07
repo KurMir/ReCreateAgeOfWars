@@ -8,6 +8,8 @@ TagManager:
   - P2
   - Sword1
   - Sword2
+  - Arrow1
+  - Arrow2
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - Water
   - UI
   - P1
-  - 
-  - 
+  - Arrow1
+  - Arrow2
   - 
   - 
   - 

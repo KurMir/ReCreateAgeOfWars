@@ -7,25 +7,19 @@ public class SwordScript : MonoBehaviour
   public string tagOfEnemy;
   public GameObject unit;
   public float damage = 3;
+  public LayerMask layerMask;
 
   void OnTriggerEnter2D(Collider2D other)
   {
     if (other.GetComponent<WarriorMovement>().tag == "P2" && unit.gameObject.tag == "P1")
     {
       WarriorMovement warrior = other.GetComponent<WarriorMovement>();
-      warrior.Damage(damage);
-      tagOfEnemy = warrior.tag;
+      //warrior.Damage(damage);
     }
     if (other.GetComponent<WarriorMovement>().tag == "P2" && unit.gameObject.tag == "P1")
     {
       WarriorMovement warrior = other.GetComponent<WarriorMovement>();
-      warrior.Damage(damage);
-      tagOfEnemy = warrior.gameObject.tag;
+      //warrior.Damage(damage);
     }
-  }
-
-  void OnTriggerExit2D(Collider2D other)
-  {
-    tagOfEnemy = "";
   }
 }
