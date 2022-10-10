@@ -24,7 +24,6 @@ public class WarriorMovement : MonoBehaviour
   public LayerMask enemyLayerMask;
   public LayerMask allyLayerMask;
   private Rigidbody2D rb;
-
   void Awake()
   {
     attkCooldownTimer = 0f;
@@ -48,7 +47,6 @@ public class WarriorMovement : MonoBehaviour
       allyRayDistance = allyRayDistance * -1;
     }
   }
-
   void Update()
   {
     DetectInFrontEnemy();
@@ -80,10 +78,11 @@ public class WarriorMovement : MonoBehaviour
     {
       if (this.gameObject.tag == "P2") { EnemyHit.distance = -EnemyHit.distance; } // For Test/Debug
       Debug.DrawRay(EnemyRaycastObject.transform.position, direction * EnemyHit.distance * new Vector2(directionNumber, 0f), Color.red);
-      moveSpeed = 0f;
       enemyOccupied = true;
+      moveSpeed = 0f;
       if (enemyOccupied)
       {
+
         MeleeAttack();
       }
     }
@@ -92,7 +91,10 @@ public class WarriorMovement : MonoBehaviour
       enemyOccupied = false;
       if (!allyOccupied)
       {
+        Animator anim = WarriorUnit.GetComponent<Animator>();
+        anim.SetTrigger("Walk");
         moveSpeed = (this.gameObject.tag == "P2") ? -0.3f : 0.3f;
+
       }
     }
     WarriorMove(moveSpeed);
@@ -116,7 +118,7 @@ public class WarriorMovement : MonoBehaviour
 
       foreach (Collider2D enemy in hitEnemies)
       {
-        enemy.GetComponent<DamageScript>().DamageDealt(6);
+        enemy.GetComponent<DamageScript>().DamageDealt(9);
       }
     }
   }
@@ -127,4 +129,7 @@ public class WarriorMovement : MonoBehaviour
       return;
     Gizmos.DrawWireSphere(AttackPoint.position, attackRange);
   }
+
+
 }
+

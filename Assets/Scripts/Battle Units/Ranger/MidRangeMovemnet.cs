@@ -37,6 +37,7 @@ public class MidRangeMovemnet : MonoBehaviour
   public LayerMask enemyLayerMask;
   public LayerMask allyLayerMask;
   private Rigidbody2D rb;
+
   void Awake()
   {
     attkCooldownTimer = 0f;
@@ -98,6 +99,8 @@ public class MidRangeMovemnet : MonoBehaviour
       allyOccupied = true;
       if (this.gameObject.tag == "P2") { AllyHit.distance = -AllyHit.distance; } // For Test/Debug
       Debug.DrawRay(allyRaycastObject.transform.position, direction * AllyHit.distance * new Vector2(directionNumber, 0f), Color.blue);
+      archerUnit.GetComponent<Animator>().enabled = false;
+      archerUnit.GetComponent<Animator>().enabled = true;
       moveSpeed = 0f;
     }
     else
@@ -116,6 +119,8 @@ public class MidRangeMovemnet : MonoBehaviour
     {
       if (this.gameObject.tag == "P2") { EnemyHit.distance = -EnemyHit.distance; } // For Test/Debug
       Debug.DrawRay(enemyRaycastObject.transform.position, direction * EnemyHit.distance * new Vector2(directionNumber, 0f), Color.red);
+      archerUnit.GetComponent<Animator>().enabled = false;
+      archerUnit.GetComponent<Animator>().enabled = true;
       moveSpeed = 0f;
       enemyOccupied = true;
       if (enemyOccupied)
@@ -128,7 +133,10 @@ public class MidRangeMovemnet : MonoBehaviour
       enemyOccupied = false;
       if (!allyOccupied)
       {
+        Animator anim = archerUnit.GetComponent<Animator>();
+        anim.SetTrigger("Walk");
         moveSpeed = (this.gameObject.tag == "P2") ? -0.3f : 0.3f;
+
       }
 
     }
@@ -150,7 +158,7 @@ public class MidRangeMovemnet : MonoBehaviour
 
       attkCooldownTimer = attackCooldownTime;
       Animator anim = archerUnit.GetComponent<Animator>();
-      anim.SetTrigger("RangeAttack");
+      anim.SetTrigger("Ranged");
     }
   }
 
@@ -181,7 +189,7 @@ public class MidRangeMovemnet : MonoBehaviour
 
       foreach (Collider2D enemy in hitEnemies)
       {
-        enemy.GetComponent<DamageScript>().DamageDealt(2f);
+        enemy.GetComponent<DamageScript>().DamageDealt(5);
       }
     }
   }

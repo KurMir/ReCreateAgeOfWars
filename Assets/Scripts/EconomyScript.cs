@@ -9,7 +9,18 @@ public class EconomyScript : MonoBehaviour
 
   [SerializeField] private TMP_Text playerCoinText;
   [SerializeField] private TMP_Text playerExpText;
+  public float spawnCoinsTime = 60f;
+  public float spawnCoinsTimer;
   private int playerMoney;
+  private int enemyMoney;
+  public int getEnemyMoney()
+  {
+    return enemyMoney;
+  }
+  public void setEnemyMoney(int enemyMoney)
+  {
+    this.enemyMoney = enemyMoney;
+  }
   public int getPlayerMoney()
   {
     return playerMoney;
@@ -19,21 +30,32 @@ public class EconomyScript : MonoBehaviour
     this.playerMoney = playerMoney;
   }
   public int PlayerExp;
-  public int EnemyMoney; //soon
   public int EnemyExp;// soon
-
-
 
   void Start()
   {
+    spawnCoinsTimer = spawnCoinsTime;
     playerMoney = 150;
-    EnemyMoney = 0;
+    enemyMoney = 150;
+    Time.timeScale = 2.0f;
   }
 
   void Update()
   {
-    playerCoinText.text = playerMoney.ToString();
+    SpawnCoins();
+    playerCoinText.text = playerMoney.ToString(); //will be removed from Update with further coding
     playerExpText.text = PlayerExp.ToString();
+  }
+
+  void SpawnCoins()
+  {
+    spawnCoinsTimer -= Time.deltaTime;
+    if (spawnCoinsTimer <= 0)
+    {
+      spawnCoinsTimer = spawnCoinsTime;
+      playerMoney += 50;
+      enemyMoney += 50;
+    }
   }
 
   public void CoinDrop(string who, string type)
@@ -57,15 +79,15 @@ public class EconomyScript : MonoBehaviour
     {
       if (type.Equals("Warrior"))
       {
-        EnemyMoney += 30;
+        enemyMoney += 30;
       }
       if (type.Equals("Archer"))
       {
-        EnemyMoney += 60;
+        enemyMoney += 60;
       }
       if (type.Equals("Spearman"))
       {
-        EnemyMoney += 100;
+        enemyMoney += 100;
       }
     }
   }

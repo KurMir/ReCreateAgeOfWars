@@ -24,6 +24,7 @@ public class SpearmanMovement : MonoBehaviour
   public LayerMask enemyLayerMask;
   public LayerMask allyLayerMask;
   private Rigidbody2D rb;
+
   void Awake()
   {
     attkCooldownTimer = 0f;
@@ -63,6 +64,7 @@ public class SpearmanMovement : MonoBehaviour
       allyOccupied = true;
       if (this.gameObject.tag == "P2") { AllyHit.distance = -AllyHit.distance; } // For Test/Debug
       Debug.DrawRay(AllyRaycastObject.transform.position, direction * AllyHit.distance * new Vector2(directionNumber, 0f), Color.blue);
+
       moveSpeed = 0f;
     }
     else
@@ -81,6 +83,7 @@ public class SpearmanMovement : MonoBehaviour
     {
       if (this.gameObject.tag == "P2") { EnemyHit.distance = -EnemyHit.distance; } // For Test/Debug
       Debug.DrawRay(EnemyRaycastObject.transform.position, direction * EnemyHit.distance * new Vector2(directionNumber, 0f), Color.red);
+
       moveSpeed = 0f;
       enemyOccupied = true;
       if (enemyOccupied)
@@ -93,7 +96,10 @@ public class SpearmanMovement : MonoBehaviour
       enemyOccupied = false;
       if (!allyOccupied)
       {
+        Animator anim = SpearmanUnit.GetComponent<Animator>();
+        anim.SetTrigger("Walk");
         moveSpeed = (this.gameObject.tag == "P2") ? -0.3f : 0.3f;
+
       }
     }
     SpearmanMove(moveSpeed);
@@ -117,7 +123,7 @@ public class SpearmanMovement : MonoBehaviour
 
       foreach (Collider2D enemy in hitEnemies)
       {
-        enemy.GetComponent<DamageScript>().DamageDealt(8);
+        enemy.GetComponent<DamageScript>().DamageDealt(13);
       }
     }
   }

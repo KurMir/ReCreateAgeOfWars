@@ -12,6 +12,7 @@ TagManager:
   - Arrow2
   - Spawn1
   - Spawn2
+  - EconomyFind
   layers:
   - Default
   - TransparentFX
