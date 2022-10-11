@@ -9,8 +9,9 @@ public class EconomyScript : MonoBehaviour
 
   [SerializeField] private TMP_Text playerCoinText;
   [SerializeField] private TMP_Text playerExpText;
-  public float spawnCoinsTime = 60f;
-  public float spawnCoinsTimer;
+  [SerializeField] private float spawnCoinsTime; // 
+  [SerializeField] private int numberOfCoinsPerSpawnCoinsTime;
+  private float spawnCoinsTimer;
   private int playerMoney;
   private int enemyMoney;
   public int getEnemyMoney()
@@ -43,8 +44,6 @@ public class EconomyScript : MonoBehaviour
   void Update()
   {
     SpawnCoins();
-    playerCoinText.text = playerMoney.ToString(); //will be removed from Update with further coding
-    playerExpText.text = PlayerExp.ToString();
   }
 
   void SpawnCoins()
@@ -53,8 +52,9 @@ public class EconomyScript : MonoBehaviour
     if (spawnCoinsTimer <= 0)
     {
       spawnCoinsTimer = spawnCoinsTime;
-      playerMoney += 50;
-      enemyMoney += 50;
+      playerMoney += numberOfCoinsPerSpawnCoinsTime; //50 coins per Time
+      enemyMoney += numberOfCoinsPerSpawnCoinsTime;
+      playerCoinText.text = playerMoney.ToString();
     }
   }
 
@@ -65,14 +65,17 @@ public class EconomyScript : MonoBehaviour
       if (type.Equals("Warrior"))
       {
         playerMoney += 30;
+        playerCoinText.text = playerMoney.ToString();
       }
       if (type.Equals("Archer"))
       {
         playerMoney += 60;
+        playerCoinText.text = playerMoney.ToString();
       }
       if (type.Equals("Spearman"))
       {
         playerMoney += 100;
+        playerCoinText.text = playerMoney.ToString();
       }
     }
     if (who.Equals("P1"))
@@ -99,14 +102,17 @@ public class EconomyScript : MonoBehaviour
       if (type.Equals("Warrior"))
       {
         PlayerExp += 60;
+        playerExpText.text = PlayerExp.ToString();
       }
       if (type.Equals("Archer"))
       {
         PlayerExp += 120;
+        playerExpText.text = PlayerExp.ToString();
       }
       if (type.Equals("Spearman"))
       {
         PlayerExp += 200;
+        playerExpText.text = PlayerExp.ToString();
       }
     }
     if (who.Equals("P1"))

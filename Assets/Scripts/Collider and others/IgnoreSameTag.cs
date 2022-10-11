@@ -13,11 +13,6 @@ public class IgnoreSameTag : MonoBehaviour
     {
       if (gameObject == this.gameObject) continue;
       Collider2D collider = gameObject.GetComponent<Collider2D>();
-      if (collider == null)
-      {
-        Debug.Log(gameObject + " has no collider");
-        continue;
-      }
       Physics2D.IgnoreCollision(selfCollider, collider);
     }
   }
