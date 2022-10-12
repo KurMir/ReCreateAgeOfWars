@@ -33,13 +33,9 @@ public class DamageScript : MonoBehaviour
       {
         Time.timeScale = 0; //Set winning
       }
-      else
-      {
         economyScript.GetComponent<EconomyScript>().CoinDrop(this.gameObject.tag, myType);
         economyScript.GetComponent<EconomyScript>().ExpDrop(this.gameObject.tag, myType);
         Destroy(gameObject);
-      }
-
     }
   }
 }

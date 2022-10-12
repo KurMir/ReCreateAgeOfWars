@@ -5,27 +5,25 @@ using UnityEngine;
 public class SpawnScript : MonoBehaviour
 {
 
-  public List<GameObject> spawns = new List<GameObject>();
-  public float autoGenTime = 8f; // summons random every 8 sec
-  public float autoGenTimer;
+  [SerializeField] private List<GameObject> spawns = new List<GameObject>();
+  [SerializeField] private float autoGenTime = 8f; // summons random every 8 sec
+  private float autoGenTimer;
   private GameObject economyScriptObject;
   private EconomyScript economyScript;
-  public int EnemyMoney; // for checking
+  public int EnemyMoney; //change to private later
 
   void Start()
   {
     economyScriptObject = GameObject.Find("Economy");
-
-
-
     autoGenTimer = autoGenTime;
+  }
+  public void EnemyMoneyUpdate(int EnemyMoney){
+    this.EnemyMoney = EnemyMoney;
   }
 
   void Update()
   {
-    economyScript = economyScriptObject.GetComponent<EconomyScript>();
-    EnemyMoney = economyScript.getEnemyMoney();
-    BotAutoSpawn();
+    BotAutoSpawn(); //removed economyscript
   }
 
   void BotAutoSpawn()
@@ -34,6 +32,9 @@ public class SpawnScript : MonoBehaviour
     if (autoGenTimer < 0.0)
     {
       autoGenTimer = autoGenTime;
+      economyScript = economyScriptObject.GetComponent<EconomyScript>();
+      EnemyMoney = economyScript.getEnemyMoney();
+
       int randomSummon = Random.Range(0, 3);
       if (this.gameObject.tag == "Spawn2")
       {
@@ -52,23 +53,13 @@ public class SpawnScript : MonoBehaviour
           economyScript.setEnemyMoney(EnemyMoney -= 15);
           Instantiate(spawns[0], this.transform.position, Quaternion.Euler(0f, 180f, 0f));
         }
-
       }
     }
   }
-  // ====== Summon ======= //
-  public void SummonWarrior()
+ 
+  // ====== Summon From ButtonScript ======= //
+  public void SummonUnits(int num)
   {
-    Instantiate(spawns[0], this.transform.position, Quaternion.identity);
-  }
-
-  public void SummonArcher()
-  {
-    Instantiate(spawns[1], this.transform.position, Quaternion.identity);
-  }
-
-  public void SummonSpearman()
-  {
-    Instantiate(spawns[2], this.transform.position, Quaternion.identity);
+    Instantiate(spawns[num], this.transform.position, Quaternion.identity);
   }
 }
