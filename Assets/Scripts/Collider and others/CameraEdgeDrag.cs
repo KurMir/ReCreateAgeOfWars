@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraEdgeDrag : MonoBehaviour
 {
   public Vector2 panLimit;
+  public float moveAmount;
+  public float edgeSize;
 
   // Start is called before the first frame update
   void Start()
@@ -17,8 +19,7 @@ public class CameraEdgeDrag : MonoBehaviour
   {
 
     Vector3 cameraFollowPosition = transform.position;
-    float moveAmount = 5f;
-    float edgeSize = 20f;
+
     if (Input.mousePosition.x > Screen.width - edgeSize)
     {
       cameraFollowPosition.x += moveAmount * Time.deltaTime;

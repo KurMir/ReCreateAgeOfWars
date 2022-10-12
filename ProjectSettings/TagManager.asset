@@ -13,6 +13,12 @@ TagManager:
   - Spawn1
   - Spawn2
   - EconomyFind
+  - TowerBulletPlayer1
+  - TowerBulletPlayer2
+  - TowerBulletEnemy1
+  - TowerBulletEnemy2
+  - TowerPlayer
+  - TowerEnemy
   layers:
   - Default
   - TransparentFX
@@ -23,8 +29,8 @@ TagManager:
   - P1
   - Arrow1
   - Arrow2
-  - 
-  - 
+  - TowerPlayer
+  - TowerEnemy
   - 
   - 
   - 

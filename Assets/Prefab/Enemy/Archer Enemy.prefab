@@ -236,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 7591776754447961573}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 3, y: -2.661, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7591776754666773780}
@@ -330,7 +330,7 @@ MonoBehaviour:
   enemyInRangeRayDistance: 3.5
   enemyLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 576
   allyLayerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14080eaec55715d44b7c2211d1a87795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 100
+  healthPoints: 240
   maxHealth: 0
   healthbar: {fileID: 8443840876300997157}
 --- !u!95 &7591776754447961582

@@ -6,7 +6,7 @@ public class ArrowScript : MonoBehaviour
 {
 
 
-  public float arrowSpeed = 1.5f;
+  public float arrowSpeed;
   private Rigidbody2D rb;
   void Awake()
   {

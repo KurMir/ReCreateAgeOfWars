@@ -11,7 +11,7 @@ public class EconomyScript : MonoBehaviour
   [SerializeField] private TMP_Text playerExpText;
   [SerializeField] private float spawnCoinsTime; // 
   [SerializeField] private int numberOfCoinsPerSpawnCoinsTime;
-  private float spawnCoinsTimer;
+  public float spawnCoinsTimer;
   private int playerMoney;
   private int enemyMoney;
   public int getEnemyMoney()
@@ -29,6 +29,7 @@ public class EconomyScript : MonoBehaviour
   public void setPlayerMoney(int playerMoney)
   {
     this.playerMoney = playerMoney;
+    playerCoinText.text = this.playerMoney.ToString();
   }
   public int PlayerExp;
   public int EnemyExp;// soon
@@ -37,6 +38,8 @@ public class EconomyScript : MonoBehaviour
   {
     spawnCoinsTimer = spawnCoinsTime;
     playerMoney = 150;
+    playerCoinText.text = playerMoney.ToString();
+    playerExpText.text = PlayerExp.ToString();
     enemyMoney = 150;
     Time.timeScale = 2.0f;
   }
@@ -77,6 +80,11 @@ public class EconomyScript : MonoBehaviour
         playerMoney += 100;
         playerCoinText.text = playerMoney.ToString();
       }
+      if (type.Equals("Tower"))
+      {
+        playerMoney += 350;
+        playerCoinText.text = playerMoney.ToString();
+      }
     }
     if (who.Equals("P1"))
     {
@@ -91,6 +99,10 @@ public class EconomyScript : MonoBehaviour
       if (type.Equals("Spearman"))
       {
         enemyMoney += 100;
+      }
+      if (type.Equals("Tower"))
+      {
+        enemyMoney += 350;
       }
     }
   }

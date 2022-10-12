@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class MidRangeMovemnet : MonoBehaviour
 {
-
   [Header("Ranger Settings")]
-
-
   public bool allyOccupied;
   public bool enemyOccupied;
   private float moveSpeed;
@@ -18,7 +15,7 @@ public class MidRangeMovemnet : MonoBehaviour
   public float meleeAttkCooldownTimer;
   public float attackCooldownTime = 1.5f;
   public float attkCooldownTimer;
-  public float arrowWaitTime = 0.6f;
+  public float arrowWaitTime = 0.7f;
   public float arrowWaitTimer;
   public bool isReadyToShoot;
 
@@ -108,7 +105,7 @@ public class MidRangeMovemnet : MonoBehaviour
       allyOccupied = false;
       if (!allyOccupied)
       {
-        moveSpeed = (this.gameObject.tag == "P2") ? -0.3f : 0.3f;
+        moveSpeed = (this.gameObject.tag == "P2") ? -0.6f : 0.6f;
       }
     }
   }
@@ -135,7 +132,7 @@ public class MidRangeMovemnet : MonoBehaviour
       {
         Animator anim = archerUnit.GetComponent<Animator>();
         anim.SetTrigger("Walk");
-        moveSpeed = (this.gameObject.tag == "P2") ? -0.3f : 0.3f;
+        moveSpeed = (this.gameObject.tag == "P2") ? -0.6f : 0.6f;
 
       }
 

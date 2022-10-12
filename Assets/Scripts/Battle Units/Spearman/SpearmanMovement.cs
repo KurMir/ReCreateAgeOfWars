@@ -72,7 +72,7 @@ public class SpearmanMovement : MonoBehaviour
       allyOccupied = false;
       if (!allyOccupied)
       {
-        moveSpeed = (this.gameObject.tag == "P2") ? -0.3f : 0.3f;
+        moveSpeed = (this.gameObject.tag == "P2") ? -0.6f : 0.6f;
       }
     }
   }
@@ -98,7 +98,7 @@ public class SpearmanMovement : MonoBehaviour
       {
         Animator anim = SpearmanUnit.GetComponent<Animator>();
         anim.SetTrigger("Walk");
-        moveSpeed = (this.gameObject.tag == "P2") ? -0.3f : 0.3f;
+        moveSpeed = (this.gameObject.tag == "P2") ? -0.6f : 0.6f;
 
       }
     }

@@ -17,10 +17,11 @@ public class DamageScript : MonoBehaviour
     economyScript = findEconomy.GetComponent<EconomyScript>();
     maxHealth = healthPoints;
     healthbar.SetHealth(healthPoints, maxHealth);
-    if (maxHealth == 100) { myType = "Archer"; }
-    if (maxHealth == 150) { myType = "Warrior"; }
-    if (maxHealth == 175) { myType = "Spearman"; }
-    if (maxHealth == 2500) { myType = "Base"; }
+    if (maxHealth == 240) { myType = "Archer"; }
+    if (maxHealth == 360) { myType = "Warrior"; }
+    if (maxHealth == 400) { myType = "Spearman"; }
+    if (maxHealth == 1800) { myType = "Tower"; }
+    if (maxHealth == 3600) { myType = "Base"; }
   }
 
   public void DamageDealt(float damage)
@@ -33,9 +34,9 @@ public class DamageScript : MonoBehaviour
       {
         Time.timeScale = 0; //Set winning
       }
-        economyScript.GetComponent<EconomyScript>().CoinDrop(this.gameObject.tag, myType);
-        economyScript.GetComponent<EconomyScript>().ExpDrop(this.gameObject.tag, myType);
-        Destroy(gameObject);
+      economyScript.GetComponent<EconomyScript>().CoinDrop(this.gameObject.tag, myType);
+      economyScript.GetComponent<EconomyScript>().ExpDrop(this.gameObject.tag, myType);
+      Destroy(gameObject);
     }
   }
 }

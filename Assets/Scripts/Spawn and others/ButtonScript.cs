@@ -6,122 +6,134 @@ using TMPro;
 
 public class ButtonScript : MonoBehaviour
 {
+  [Header("GameObjects/Images/Sliders")]
   public GameObject economyScript;
   public GameObject spawnScript;
-  public int playerCoin;
-
   [SerializeField] private Image[] QueueImage = new Image[4];
-  [SerializeField] private Slider slider;
-  [SerializeField] private Color whiteColor = Color.white;
   public Slider Slider;
-  public Color forColor;
 
-  public float queueTime = 5f;
+  [Header("Button and Queue Script Settings")]
+  public float queueTime;
   public float queueTimer;
-    
-  public int []ArrayQueue = new int [4]; //public to show in inspector
-  private int count = 0;
-   
+  private int playerCoin;
+  private int[] ArrayQueue = new int[4];
+  private int count;
+
   private bool isFull()
   {
-    for (int i = 0; i < ArrayQueue.Length; i++){
-      if(ArrayQueue[i] != -1){ count++; } 
+    count = 0;
+    for (int i = 0; i < ArrayQueue.Length; i++)
+    {
+      if (ArrayQueue[i] != -1) { count++; }
     }
-    if (count == 4){ return true; } 
+    if (count == 4) { return true; }
     else { return false; }
-    }
-  
-  
+  }
+
+
 
   void Start()
   {
+    Slider.maxValue = queueTime;
+    Slider.value = 0f;
+    queueTimer = 0f;
     playerCoin = economyScript.GetComponent<EconomyScript>().getPlayerMoney();
-    for (int i = 0; i < ArrayQueue.Length; i++){ ArrayQueue[i] = -1; } //sets all to -1
+    for (int i = 0; i < ArrayQueue.Length; i++) { ArrayQueue[i] = -1; } //sets all to -1
   }
   void Update()
   {
-      QueueTimeStamp(); //Updates everytime [0] is not null
+    QueueTimeStamp(); //Updates everytime [0] is not null for (int i = 0; i < ArrayQueue.Length; i++)
   }
 
-// ====== Button Clicks in game view ===== //
+  // ====== Button Clicks in game view ===== //
   public void SpawnWarrior()
   {
     playerCoin = economyScript.GetComponent<EconomyScript>().getPlayerMoney();
     if (playerCoin > 14)
-      if(isFull() == false) // if queue is not full, add code later for effects
+      if (isFull() == false) // if queue is not full, add code later for effects
         economyScript.GetComponent<EconomyScript>().setPlayerMoney(playerCoin -= 15);
-        AddQueue(0);
+    AddQueue(0);
   }
   public void SpawnArcher()
   {
     playerCoin = economyScript.GetComponent<EconomyScript>().getPlayerMoney();
     if (playerCoin > 29)
-      if(isFull() == false) // if queue is not full, add code later for effects
-        economyScript.GetComponent<EconomyScript>().setPlayerMoney(playerCoin -= 30); 
-        AddQueue(1);  
+      if (isFull() == false) // if queue is not full, add code later for effects
+        economyScript.GetComponent<EconomyScript>().setPlayerMoney(playerCoin -= 30);
+    AddQueue(1);
   }
   public void SpawnSpearman()
   {
     playerCoin = economyScript.GetComponent<EconomyScript>().getPlayerMoney();
     if (playerCoin > 49)
-      if(isFull() == false) // if queue is not full, add code later for effects
+      if (isFull() == false) // if queue is not full, add code later for effects
         economyScript.GetComponent<EconomyScript>().setPlayerMoney(playerCoin -= 50);
-        AddQueue(2);
+    AddQueue(2);
   }
 
-  
-  void AddQueue(int type) {
-        
+
+  void AddQueue(int type)
+  {
+
     for (int i = 0; i < ArrayQueue.Length; i++)
     {
-      if(ArrayQueue[i] == -1){
-      ArrayQueue[i] = type; 
-      for (int j = 0; j < ArrayQueue.Length; j++){ // This For Loop Updates the QueueBoxes in the game view to be brighten if onQueue
-        if(ArrayQueue[j] == -1){ 
-        var tempColor = QueueImage[j].color;
-        tempColor.a = 100f;
-        QueueImage[j].color = tempColor;
-        }
-        else{
-        var tempColor = QueueImage[j].color;
-        tempColor.a = 255f; 
-        QueueImage[j].color = tempColor;
-        }
-      } 
-      break; 
-      }else if (isFull()) { break; } 
+      if (ArrayQueue[i] == -1)
+      {
+        ArrayQueue[i] = type;
+        QueueImage[i].GetComponent<Image>().color = new Color32(255, 255, 225, 255);
+        break;
+      }
+      else if (isFull()) { break; }
     }
   }
-    
+
   void RemoveQueue()
   {
-      //remove current [0] and add -1 
     for (int i = 0; i < ArrayQueue.Length; i++)
-    { 
-      if(isFull() == false) // im not sure if !isFull() works
+    {
+      if (isFull() == false) // assuming that the last array is -1 or the arrays below
       {
-        if(i < ArrayQueue.Length-1){
-          ArrayQueue[i] = ArrayQueue[i+1];
+        if (i < ArrayQueue.Length - 1)
+        {
+          ArrayQueue[i] = ArrayQueue[i + 1];
         }
-      }else { ArrayQueue[count-1] = -1; break; }
+      }
+      else
+      {
+        ArrayQueue[count - 1] = -1;
+        break;
+      }
     }
-     
+
+    for (int i = 0; i < ArrayQueue.Length; i++)
+    {
+      if (ArrayQueue[i] == -1)
+      {
+        //var tempColor = QueueImage[i].color;
+        //tempColor.a = 100;
+        QueueImage[i].GetComponent<Image>().color = new Color32(255, 255, 225, 100);
+      }
+    }
+
   }
-    void QueueTimeStamp(){
+  void QueueTimeStamp()
+  {
 
-        if(ArrayQueue[0] != -1){ 
-            queueTimer -= Time.deltaTime; 
-            Slider.value = queueTimer; 
-            Slider.maxValue = 5f;
+    if (ArrayQueue[0] != -1)
+    {
+      queueTimer += Time.deltaTime;
+      Slider.value = queueTimer;
 
-            if (queueTimer <= 0.0f){
-                queueTimer = queueTime;
-                InstantiateUnits(ArrayQueue[0]);
-                RemoveQueue();
-            }
-        }
-           
+      if (queueTimer >= queueTime)
+      {
+        queueTimer = 0f;
+        Slider.value = queueTimer;
+        InstantiateUnits(ArrayQueue[0]);
+        RemoveQueue();
+      }
     }
+
+  }
 
   void InstantiateUnits(int num)
   {
