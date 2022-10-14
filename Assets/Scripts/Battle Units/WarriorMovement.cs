@@ -1,0 +1,153 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WarriorMovement : MonoBehaviour
+{
+  [Header("Warrior Settings")]
+  public float attackCooldownTime = 3;
+  public float attkCooldownTimer;
+  public bool allyOccupied;
+  public bool enemyOccupied;
+  private float moveSpeed;
+  private Vector2 direction;
+  private float directionNumber;
+
+  [Header("GameObjects/Transforms")]
+  public Transform AttackPoint;
+  public float attackRange;
+  public GameObject EnemyRaycastObject;
+  public GameObject AllyRaycastObject;
+  public GameObject WarriorUnit;
+  public float enemyRayDistance;
+  public float allyRayDistance;
+  public LayerMask enemyLayerMask;
+  public LayerMask allyLayerMask;
+  private Rigidbody2D rb;
+  public GameObject closestEnemy;
+  void Awake()
+  {
+    attkCooldownTimer = 0f;
+    allyOccupied = false;
+    rb = this.gameObject.GetComponent<Rigidbody2D>();
+    rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+  }
+
+  void Start()
+  {
+    closestEnemy = null;
+    if (this.gameObject.tag == "P1")
+    {
+      direction = Vector2.right;
+      directionNumber = 1f;
+    }
+    if (this.gameObject.tag == "P2")
+    {
+      direction = Vector2.left;
+      directionNumber = -1f;
+      enemyRayDistance = enemyRayDistance * -1;
+      allyRayDistance = allyRayDistance * -1;
+    }
+  }
+  void Update()
+  {
+    closestEnemy = getClosestEnemy().GetComponent<GameObject>();
+    DetectInFrontEnemy();
+    DetectInFrontAlly();
+    
+  }
+  void DetectInFrontAlly()
+  {
+    RaycastHit2D AllyHit = Physics2D.Raycast(AllyRaycastObject.transform.position, direction * new Vector2(directionNumber, 0f), allyRayDistance, allyLayerMask);
+    if (AllyHit.collider != null)
+    {
+      allyOccupied = true;
+      if (this.gameObject.tag == "P2") { AllyHit.distance = -AllyHit.distance; } // For Test/Debug
+      Debug.DrawRay(AllyRaycastObject.transform.position, direction * AllyHit.distance * new Vector2(directionNumber, 0f), Color.blue);
+      moveSpeed = 0f;
+    }
+    else
+    {
+      allyOccupied = false;
+      if (!allyOccupied)
+      {
+        moveSpeed = (this.gameObject.tag == "P2") ? -0.6f : 0.6f;
+      }
+    }
+  }
+  void DetectInFrontEnemy()
+  {
+    RaycastHit2D EnemyHit = Physics2D.Raycast(EnemyRaycastObject.transform.position, direction * new Vector2(directionNumber, 0f), enemyRayDistance, enemyLayerMask);
+    if (EnemyHit.collider != null)
+    {
+      if (this.gameObject.tag == "P2") { EnemyHit.distance = -EnemyHit.distance; } // For Test/Debug
+      Debug.DrawRay(EnemyRaycastObject.transform.position, direction * EnemyHit.distance * new Vector2(directionNumber, 0f), Color.red);
+      enemyOccupied = true;
+      moveSpeed = 0f;
+      if (enemyOccupied)
+      {
+
+        MeleeAttack();
+      }
+    }
+    else
+    {
+      enemyOccupied = false;
+      if (!allyOccupied)
+      {
+        Animator anim = WarriorUnit.GetComponent<Animator>();
+        anim.SetTrigger("Walk");
+        moveSpeed = (this.gameObject.tag == "P2") ? -0.6f : 0.6f;
+
+      }
+    }
+    WarriorMove(moveSpeed);
+  }
+
+  void WarriorMove(float move)
+  {
+    rb.velocity = new Vector2(move, 0f);
+  }
+
+  void MeleeAttack()
+  {
+    if(closestEnemy != null){
+      attkCooldownTimer -= Time.deltaTime;
+      if (attkCooldownTimer <= 0.0f)
+      {
+        attkCooldownTimer = attackCooldownTime;
+        Animator anim = WarriorUnit.GetComponent<Animator>();
+        anim.SetTrigger("Attack");
+        closestEnemy.GetComponent<DamageScript>().DamageDealt(21);
+      }
+    }
+  }
+
+  void OnDrawGizmosSelected() //Drawing Gizmos
+  {
+    if (AttackPoint == null)
+      return;
+    Gizmos.DrawWireSphere(AttackPoint.position, attackRange);
+  }
+
+  public Transform getClosestEnemy()
+  {
+    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayerMask);
+    float closestDistance = Mathf.Infinity;
+    Transform trans = null;
+
+    foreach (Collider2D enemy in hitEnemies)
+    {
+      float currentDistance;
+      currentDistance = Vector3.Distance(transform.position, enemy.transform.position);
+      if (currentDistance < closestDistance)
+      {
+        closestDistance = currentDistance;
+        trans = enemy.transform;
+      }
+    }
+    return trans;
+  }
+
+}
+

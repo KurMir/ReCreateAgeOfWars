@@ -31,8 +31,8 @@ TagManager:
   - Arrow2
   - TowerPlayer
   - TowerEnemy
-  - 
-  - 
+  - HeroPlayer
+  - HeroEnemy
   - 
   - 
   - 

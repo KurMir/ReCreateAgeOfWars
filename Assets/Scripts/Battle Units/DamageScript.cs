@@ -6,9 +6,10 @@ public class DamageScript : MonoBehaviour
 {
   private GameObject findEconomy;
   EconomyScript economyScript;
-  public float healthPoints;
-  public float maxHealth;
-  private string myType;
+  [SerializeField] private int expDrop;
+  [SerializeField] private int coinDrop; // will optimize later updates for Heroes/Champions
+  [SerializeField] private float healthPoints;
+  [SerializeField] private float maxHealth;
   public HealthbarBehaviour healthbar;
 
   void Start()
@@ -17,11 +18,6 @@ public class DamageScript : MonoBehaviour
     economyScript = findEconomy.GetComponent<EconomyScript>();
     maxHealth = healthPoints;
     healthbar.SetHealth(healthPoints, maxHealth);
-    if (maxHealth == 240) { myType = "Archer"; }
-    if (maxHealth == 360) { myType = "Warrior"; }
-    if (maxHealth == 400) { myType = "Spearman"; }
-    if (maxHealth == 1800) { myType = "Tower"; }
-    if (maxHealth == 3600) { myType = "Base"; }
   }
 
   public void DamageDealt(float damage)
@@ -30,13 +26,15 @@ public class DamageScript : MonoBehaviour
     healthbar.SetHealth(healthPoints, maxHealth);
     if (healthPoints <= 0)
     {
-      if (myType.Equals("Base"))
+      if (this.gameObject.tag == "Base")
       {
         Time.timeScale = 0; //Set winning
       }
-      economyScript.GetComponent<EconomyScript>().CoinDrop(this.gameObject.tag, myType);
-      economyScript.GetComponent<EconomyScript>().ExpDrop(this.gameObject.tag, myType);
-      Destroy(gameObject);
+        else
+        {
+          economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
+          Destroy(gameObject);
+        }
     }
   }
 }

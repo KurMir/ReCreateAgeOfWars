@@ -60,88 +60,19 @@ public class EconomyScript : MonoBehaviour
       playerCoinText.text = playerMoney.ToString();
     }
   }
-
-  public void CoinDrop(string who, string type)
+  public void Drops(int exp, int coins, string tag)
   {
-    if (who.Equals("P2")) //if Enemy unit was killed, Money goes to player
+    if (tag == "P1")
     {
-      if (type.Equals("Warrior"))
-      {
-        playerMoney += 30;
-        playerCoinText.text = playerMoney.ToString();
-      }
-      if (type.Equals("Archer"))
-      {
-        playerMoney += 60;
-        playerCoinText.text = playerMoney.ToString();
-      }
-      if (type.Equals("Spearman"))
-      {
-        playerMoney += 100;
-        playerCoinText.text = playerMoney.ToString();
-      }
-      if (type.Equals("Tower"))
-      {
-        playerMoney += 350;
-        playerCoinText.text = playerMoney.ToString();
-      }
+      playerMoney += coins;
+      PlayerExp += exp;
+      playerCoinText.text = playerMoney.ToString();
+      playerExpText.text = PlayerExp.ToString();
     }
-    if (who.Equals("P1"))
+    if (tag == "P2")
     {
-      if (type.Equals("Warrior"))
-      {
-        enemyMoney += 30;
-      }
-      if (type.Equals("Archer"))
-      {
-        enemyMoney += 60;
-      }
-      if (type.Equals("Spearman"))
-      {
-        enemyMoney += 100;
-      }
-      if (type.Equals("Tower"))
-      {
-        enemyMoney += 350;
-      }
+      enemyMoney += coins;
+      EnemyExp += exp;
     }
   }
-
-  public void ExpDrop(string who, string type)
-  {
-    if (who.Equals("P2")) //if Enemy unit was killed, Money goes to player
-    {
-      if (type.Equals("Warrior"))
-      {
-        PlayerExp += 60;
-        playerExpText.text = PlayerExp.ToString();
-      }
-      if (type.Equals("Archer"))
-      {
-        PlayerExp += 120;
-        playerExpText.text = PlayerExp.ToString();
-      }
-      if (type.Equals("Spearman"))
-      {
-        PlayerExp += 200;
-        playerExpText.text = PlayerExp.ToString();
-      }
-    }
-    if (who.Equals("P1"))
-    {
-      if (type.Equals("Warrior"))
-      {
-        EnemyExp += 60;
-      }
-      if (type.Equals("Archer"))
-      {
-        EnemyExp += 120;
-      }
-      if (type.Equals("Spearman"))
-      {
-        EnemyExp += 200;
-      }
-    }
-  }
-
 }

@@ -30,8 +30,6 @@ public class ButtonScript : MonoBehaviour
     else { return false; }
   }
 
-
-
   void Start()
   {
     Slider.maxValue = queueTime;
@@ -89,20 +87,14 @@ public class ButtonScript : MonoBehaviour
 
   void RemoveQueue()
   {
+
+  if(isFull() == false){
     for (int i = 0; i < ArrayQueue.Length; i++)
     {
-      if (isFull() == false) // assuming that the last array is -1 or the arrays below
-      {
         if (i < ArrayQueue.Length - 1)
         {
           ArrayQueue[i] = ArrayQueue[i + 1];
         }
-      }
-      else
-      {
-        ArrayQueue[count - 1] = -1;
-        break;
-      }
     }
 
     for (int i = 0; i < ArrayQueue.Length; i++)
@@ -114,7 +106,27 @@ public class ButtonScript : MonoBehaviour
         QueueImage[i].GetComponent<Image>().color = new Color32(255, 255, 225, 100);
       }
     }
-
+  }
+  else if(isFull())
+  {
+     for (int i = 0; i < ArrayQueue.Length; i++)
+    {
+        if (i < ArrayQueue.Length - 1)
+        {
+          ArrayQueue[i] = ArrayQueue[i + 1];
+        }
+    }
+    ArrayQueue[ArrayQueue.Length - 1] = -1;
+    for (int i = 0; i < ArrayQueue.Length; i++)
+    {
+      if (ArrayQueue[i] == -1)
+      {
+        //var tempColor = QueueImage[i].color;
+        //tempColor.a = 100;
+        QueueImage[i].GetComponent<Image>().color = new Color32(255, 255, 225, 100);
+      }
+    }
+  }
   }
   void QueueTimeStamp()
   {
