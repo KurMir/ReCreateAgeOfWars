@@ -10,6 +10,7 @@ public class DamageScript : MonoBehaviour
   [SerializeField] private int coinDrop; // will optimize later updates for Heroes/Champions
   [SerializeField] private float healthPoints;
   [SerializeField] private float maxHealth;
+  [SerializeField] private string unitName;
   public HealthbarBehaviour healthbar;
 
   void Start()
@@ -30,11 +31,15 @@ public class DamageScript : MonoBehaviour
       {
         Time.timeScale = 0; //Set winning
       }
-        else
-        {
-          economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
-          Destroy(gameObject);
-        }
+      else
+      {
+        economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
+        Destroy(gameObject);
+      }
     }
+  }
+  public string UnitName()
+  {
+    return unitName;
   }
 }

@@ -4,121 +4,96 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 
-public class WarriorChampionScript : MonoBehaviour
+public class WarriorChampionScript : BaseMovement
 {
-    [Header("Warrior Champion Settings")]
-    public float attackCooldownTime;
-    public float attkCooldownTimer;
-    public bool enemyOccupied;
-    private float moveSpeed;
-    private Vector2 direction;
-    private float directionNumber;
 
-    
-    private float mana;
-    private float baseDamage;
-    private float baseDefence;
+  public float inputValue = 1;
+  private float mana;
+  private float baseDamage;
+  private float baseDefence;
 
-    [Header("GameObjects/Transforms")]
-    
-    public Transform AttackPoint;
-    public float attackRange;
-    public LayerMask enemyLayerMask;
-    public GameObject EnemyRaycastObject;
-    public float enemyRayDistance;
-    public GameObject WarriorChampionUnit;
-    private Rigidbody2D rb;
-    public GameObject closestEnemy;
+  public TMP_Text EnemyName;
+  public GameObject firstSkill;
+  public GameObject secondSkill;
+  public LayerMask ownBase;
+  public float baseDistanceInput;
+  public float baseDistance;
 
-    void Awake()
+  public bool lookingAtBase;
+
+  new public void Update()
+  {
+    DetectInputs();
+    bool hasAllyInFront = HasAllyInFront();
+    bool hasEnemyInFront = HasEnemyInFront();
+
+    IsLookingAtBase();
+
+    this.UnitMove(hasAllyInFront, hasEnemyInFront);
+  }
+
+  void DetectInputs()
+  {
+    if (this.gameObject.tag == "P1")
     {
-        rb = this.gameObject.GetComponent<Rigidbody2D>();
-        rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+      if (Input.GetKeyDown(KeyCode.Space))
+      {
+        direction = Vector2.zero;
+      }
+      if (Input.GetKeyDown(KeyCode.D))
+      {
+        direction = Vector2.right;
+      }
+      if (Input.GetKeyDown(KeyCode.A))
+      {
+        direction = Vector2.left;
+      }
+      if (direction == Vector2.left)
+      {
+        baseDistance = -baseDistanceInput;
+        // enemyRayDistance = -enemyDistance;
+        transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+      }
+      else
+      {
+        baseDistance = baseDistanceInput;
+        // enemyRayDistance = enemyDistance;
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+      }
     }
-    void Start()
-    {
-        closestEnemy = null;
-        if (this.gameObject.tag == "P1")
-        {
-            direction = Vector2.right;
-            directionNumber = 1f;
-        }
-        if (this.gameObject.tag == "P2")
-        {
-            direction = Vector2.left;
-            directionNumber = -1f;
-            enemyRayDistance = enemyRayDistance * -1;
-        }
-    }
+  }
 
-    void Update()
-    {
-        DetectInFrontEnemy();
-    }
+  bool IsLookingAtBase()
+  {
+    float directionValue = GetDirectionValue();
+    RaycastHit2D ownBaseHit = Physics2D.Raycast(
+      enemyRaycastObject.transform.position,
+      direction * new Vector2(directionValue, 0f),
+      baseDistance,
+      ownBase
+    );
 
-    void DetectInFrontEnemy()
-    {
-        RaycastHit2D EnemyHit = Physics2D.Raycast(EnemyRaycastObject.transform.position, direction * new Vector2(directionNumber, 0f), enemyRayDistance, enemyLayerMask);
-        if (EnemyHit.collider != null)
-        {
-            if (this.gameObject.tag == "P2") { EnemyHit.distance = -EnemyHit.distance; } // For Test/Debug
-            Debug.DrawRay(EnemyRaycastObject.transform.position, direction * EnemyHit.distance * new Vector2(directionNumber, 0f), Color.red);
-            enemyOccupied = true;
-             moveSpeed = 0f;
-            if (enemyOccupied)
-            {
-                MeleeAttack();
-            }
-        }
-        else
-        {
-            enemyOccupied = false;
-            Animator anim = WarriorChampionUnit.GetComponent<Animator>();
-            anim.SetTrigger("Walk");
-            moveSpeed = (this.gameObject.tag == "P2") ? -0.6f : 0.6f; // soon      
-        }
-        WarriorChampionMove(moveSpeed);
-    }
+    bool isLookingAtBase = ownBaseHit.collider != null;
 
-    void MeleeAttack()
+    if (isLookingAtBase)
     {
-        if(closestEnemy != null){
-            attkCooldownTimer -= Time.deltaTime;
-            if (attkCooldownTimer <= 0.0f)
-            {
-                attkCooldownTimer = attackCooldownTime;
-                Animator anim = WarriorChampionUnit.GetComponent<Animator>();
-                anim.SetTrigger("Attack");
-                closestEnemy.GetComponent<DamageScript>().DamageDealt(21); // soon
-            }
-        }
+      Debug.DrawRay(
+        enemyRaycastObject.transform.position,
+        direction * ownBaseHit.distance * new Vector2(directionValue, 0f),
+        Color.blue
+      );
     }
 
-    public void WarriorSkill1()
-    {
+    return isLookingAtBase;
+  }
 
-    }
+  public void WarriorSkill1()
+  {
 
-    public void WarriorSkill2()
-    {
+  }
 
-    }
+  public void WarriorSkill2()
+  {
 
-    public void Teleport()
-    {
-
-    }
-
-    void OnDrawGizmosSelected() //Drawing Gizmos
-    {
-        if (AttackPoint == null)
-            return;
-            Gizmos.DrawWireSphere(AttackPoint.position, attackRange);
-    }
-
-    void WarriorChampionMove(float speed)
-    {
-        rb.velocity = new Vector2(speed, 0f);
-    }
-
+  }
 }

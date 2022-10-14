@@ -33,8 +33,8 @@ TagManager:
   - TowerEnemy
   - HeroPlayer
   - HeroEnemy
-  - 
-  - 
+  - BasePlayer
+  - BaseEnemy
   - 
   - 
   - 
