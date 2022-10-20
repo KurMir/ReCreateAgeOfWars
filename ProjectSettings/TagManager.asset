@@ -35,12 +35,12 @@ TagManager:
   - HeroEnemy
   - BasePlayer
   - BaseEnemy
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ArcherEnemy
+  - ArcherPlayer
+  - WarriorEnemy
+  - WarriorPlayer
+  - SpearmanEnemy
+  - SpearmanPlayer
   - 
   - 
   - 

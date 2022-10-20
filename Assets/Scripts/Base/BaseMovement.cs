@@ -14,9 +14,11 @@ public abstract class BaseMovement : MonoBehaviour
   public bool enemyOccupied = false;
   public float currentMoveSpeed = 0.0f;
   public float moveSpeed = 0.6f;
-  protected Vector2 direction;
+  public Vector2 direction;
 
   [Header("GameObjects/Transforms")]
+  public AudioSource sourceForMelee;
+  public AudioClip clip;
   public Transform attackPoint;
   public float attackRange = 4;
 
@@ -40,7 +42,7 @@ public abstract class BaseMovement : MonoBehaviour
 
   protected Rigidbody2D rb;
 
-  void Awake()
+  public void Awake()
   {
     attackCooldownTimer = 0f;
     allyOccupied = false;
@@ -49,8 +51,9 @@ public abstract class BaseMovement : MonoBehaviour
     unitAnimator = unitGameObject.GetComponent<Animator>();
   }
 
-  void Start()
+  public void Start()
   {
+    Debug.Log(LayerMask.LayerToName(this.gameObject.layer));
     closestEnemy = null;
     gameSettings = Camera.main.GetComponent<GameSettings>();
     if (this.gameObject.tag == "P1")
@@ -165,10 +168,11 @@ public abstract class BaseMovement : MonoBehaviour
   {
     closestEnemy = GetClosestEnemy();
     attackCooldownTimer -= Time.deltaTime;
-    if (attackCooldownTimer <= 0.0f)
+    if (attackCooldownTimer < 0.0f)
     {
       attackCooldownTimer = attackCooldownTime;
       unitAnimator.SetTrigger("Attack");
+      sourceForMelee.PlayOneShot(clip);
       closestEnemy.GetComponent<DamageScript>().DamageDealt(21);
     }
   }
@@ -197,8 +201,6 @@ public abstract class BaseMovement : MonoBehaviour
         closestGameObject = enemy.gameObject;
       }
     }
-
-    Debug.Log(closestGameObject);
     return closestGameObject;
   }
 }

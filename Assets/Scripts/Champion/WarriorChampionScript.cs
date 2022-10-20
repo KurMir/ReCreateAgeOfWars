@@ -6,20 +6,19 @@ using UnityEngine;
 
 public class WarriorChampionScript : BaseMovement
 {
+  [Header("WarriorChampion Settings")]
 
   public float inputValue = 1;
-  private float mana;
   private float baseDamage;
   private float baseDefence;
 
   public TMP_Text EnemyName;
-  public GameObject firstSkill;
-  public GameObject secondSkill;
   public LayerMask ownBase;
   public float baseDistanceInput;
   public float baseDistance;
 
   public bool lookingAtBase;
+
 
   new public void Update()
   {
@@ -85,15 +84,5 @@ public class WarriorChampionScript : BaseMovement
     }
 
     return isLookingAtBase;
-  }
-
-  public void WarriorSkill1()
-  {
-
-  }
-
-  public void WarriorSkill2()
-  {
-
   }
 }
