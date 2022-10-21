@@ -17,8 +17,6 @@ TagManager:
   - TowerBulletPlayer2
   - TowerBulletEnemy1
   - TowerBulletEnemy2
-  - TowerPlayer
-  - TowerEnemy
   layers:
   - Default
   - TransparentFX

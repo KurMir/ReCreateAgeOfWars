@@ -8,17 +8,17 @@ public class MidRangeMovemnet : BaseMovement
 
   public Vector2 directionArcher;
   public bool isAttackingRange;
-  public float arrowAttkCooldownTime;
-  public float arrowAttkCooldownTimer;
-  public float arrowWaitTime;
-  public float arrowWaitTimer;
+  public float arrowAttkCooldownTime = 2f;
+  public float arrowAttkCooldownTimer = 0f;
+  public float arrowReleaseTime = 2;
+  public float arrowReleaseTimer = 0f;
   public bool isReadyToShoot;
+  public bool isReadyToRelease;
 
   [Header("GameObjects/Transforms")]
   public AudioSource source;
-  public AudioClip meleeClip, bowChargeClip, bowReleaseClip;
+  public AudioClip bowChargeClip, bowReleaseClip;
   public GameObject Arrow;
-  public Transform AttackPoint;
   public Transform ArrowAttackPoint;
   public GameObject archerUnit;
   public GameObject enemyInRangeRaycastObject;
@@ -26,78 +26,98 @@ public class MidRangeMovemnet : BaseMovement
 
   new public void Start()
   {
-    arrowWaitTimer = 0;
-    arrowAttkCooldownTimer = 0;
+    isReadyToRelease = false;
+    isReadyToShoot = true;
+    this.unitAnimator.GetComponent<Animator>();
+    arrowAttkCooldownTimer = arrowAttkCooldownTime;
+    attackAvailable = true;
+    allyOccupied = false;
+    enemyOccupied = false;
+    
+    closestEnemy = null;
+    
     if (this.gameObject.tag == "P1")
     {
-      directionArcher = Vector2.right;
+      direction = Vector2.right;
+      allyLayerMask = gameSettings.allyLayerMask;
+      enemyLayerMask = gameSettings.enemyLayerMask;
     }
-
+    if (this.gameObject.tag == "P2")
+    {
+      direction = Vector2.left;
+      enemyRayDistance = enemyRayDistance * -1;
+      allyRayDistance = allyRayDistance * -1;
+      allyLayerMask = gameSettings.enemyLayerMask;
+      enemyLayerMask = gameSettings.allyLayerMask;
+    }
+    arrowAttkCooldownTimer = 0f;
 
     if (this.gameObject.tag == "P2")
     {
-      enemyRayDistance *= -1;
-      allyRayDistance *= -1;
-      enemyInRangeRayDistance *= -1;
-      directionArcher = Vector2.left;
-
+      enemyInRangeRayDistance = enemyInRangeRayDistance * -1;
     }
   }
   new public void Update()
   {
-    ArrowWaitCooldown();
     DetectInRangedEnemy();
+    ArrowRelease();
+    bool hasAllyInFront = HasAllyInFront();
+    bool hasEnemyInFront = HasEnemyInFront();
+    this.UnitMove(hasAllyInFront, hasEnemyInFront);
   }
 
   void DetectInRangedEnemy()
   {
-    RaycastHit2D EnemyInRangeHit = Physics2D.Raycast(enemyInRangeRaycastObject.transform.position, direction * new Vector2(directionArcher.x, 0f), enemyInRangeRayDistance, enemyLayerMask);
+    float directionValue = this.GetDirectionValue();
+    RaycastHit2D EnemyInRangeHit = Physics2D.Raycast(
+      enemyInRangeRaycastObject.transform.position, 
+      this.direction * new Vector2(directionValue, 0f), 
+      enemyInRangeRayDistance, 
+      this.enemyLayerMask);
     if (EnemyInRangeHit.collider != null)
     {
+     
       if (this.gameObject.tag == "P2") { EnemyInRangeHit.distance = -EnemyInRangeHit.distance; } // For Test/Debug
-      Debug.DrawRay(enemyInRangeRaycastObject.transform.position, direction * EnemyInRangeHit.distance * new Vector2(directionArcher.x, 0f), Color.green);
-      isAttackingRange = true;
+      Debug.DrawRay(enemyInRangeRaycastObject.transform.position, direction * EnemyInRangeHit.distance * new Vector2(directionValue, 0f), Color.green);
+      
       if (!enemyOccupied)
       {
-        if (isAttackingRange)
-        {
-          ArcherAttack();
-        }
+        ArcherAttack();
       }
-    }
-    else
-    {
-      isAttackingRange = false;
     }
   }
   void ArcherAttack()
   {
     arrowAttkCooldownTimer -= Time.deltaTime;
-    if (arrowAttkCooldownTimer <= 0.0f)
+    if(isReadyToShoot)
     {
-      isReadyToShoot = true;
-      arrowWaitTimer = arrowWaitTime;
-      unitAnimator.SetTrigger("Ranged");
-      arrowWaitTimer = arrowWaitTime;
-      source.PlayOneShot(bowChargeClip);
-
-    }
-  }
-
-  void ArrowWaitCooldown()
-  {
-    if (isReadyToShoot)
-    {
-      arrowWaitTimer -= Time.deltaTime;
-      if (arrowWaitTimer <= 0.0f)
+      if (arrowAttkCooldownTimer < 0.0f)
       {
-        source.PlayOneShot(bowReleaseClip);
-        Instantiate(Arrow, ArrowAttackPoint.position, Quaternion.identity);
+        this.unitAnimator.SetTrigger("Ranged"); // will add walking animation when currentSpeed = 0;
+        source.PlayOneShot(bowChargeClip);
+        arrowReleaseTimer = arrowReleaseTime;
         isReadyToShoot = false;
+        isReadyToRelease = true;
+        
       }
     }
-
-
+    
   }
+  void ArrowRelease()
+  {
 
+    arrowReleaseTimer -= Time.deltaTime;
+    if (isReadyToRelease)
+    { 
+      if(arrowReleaseTimer < 0.0f)
+      {
+        Instantiate(Arrow, ArrowAttackPoint.position, Quaternion.identity);
+        source.PlayOneShot(bowReleaseClip);
+        arrowAttkCooldownTimer = arrowAttkCooldownTime;
+        isReadyToShoot = true;
+        isReadyToRelease = false;
+      }
+    }
+    
+  }
 }

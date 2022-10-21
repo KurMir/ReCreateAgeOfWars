@@ -25,10 +25,10 @@ public class WarriorChampionScript : BaseMovement
     DetectInputs();
     bool hasAllyInFront = HasAllyInFront();
     bool hasEnemyInFront = HasEnemyInFront();
-
+    this.UnitMove(hasAllyInFront, hasEnemyInFront);
     IsLookingAtBase();
 
-    this.UnitMove(hasAllyInFront, hasEnemyInFront);
+    
   }
 
   void DetectInputs()

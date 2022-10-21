@@ -17,11 +17,11 @@ public class ArrowScript : MonoBehaviour
   {
     if (this.gameObject.tag == "Arrow1")
     {
-      arrowSpeed = 1.5f;
+      arrowSpeed = 4.5f;
     }
     if (this.gameObject.tag == "Arrow2")
     {
-      arrowSpeed = -1.5f;
+      arrowSpeed = -4.5f;
     }
   }
   void Update()

@@ -8,17 +8,19 @@ using UnityEngine;
 public abstract class BaseMovement : MonoBehaviour
 {
   [Header("Unit Settings")]
-  public float attackCooldownTime = 1.0f;
+  public bool attackAvailable;
+  public float attackCooldownTime = 1.0f; 
   public float attackCooldownTimer = 0f;
-  public bool allyOccupied = false;
-  public bool enemyOccupied = false;
+  public bool allyOccupied;
+  public bool enemyOccupied;
   public float currentMoveSpeed = 0.0f;
-  public float moveSpeed = 0.6f;
+  public float moveSpeed = 0.1f;
+  public float meleeDamage = 15.0f;
   public Vector2 direction;
 
   [Header("GameObjects/Transforms")]
   public AudioSource sourceForMelee;
-  public AudioClip clip;
+  public AudioClip meleeClip;
   public Transform attackPoint;
   public float attackRange = 4;
 
@@ -42,20 +44,24 @@ public abstract class BaseMovement : MonoBehaviour
 
   protected Rigidbody2D rb;
 
-  public void Awake()
+  public void Awake() 
   {
-    attackCooldownTimer = 0f;
-    allyOccupied = false;
-    rb = this.gameObject.GetComponent<Rigidbody2D>();
-    rb.constraints = RigidbodyConstraints2D.FreezePositionY;
     unitAnimator = unitGameObject.GetComponent<Animator>();
+    gameSettings = Camera.main.GetComponent<GameSettings>();
+    rb = this.gameObject.GetComponent<Rigidbody2D>(); 
+    rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+    
   }
 
   public void Start()
   {
-    Debug.Log(LayerMask.LayerToName(this.gameObject.layer));
+    attackAvailable = true;
+    attackCooldownTimer = 0f;
+    allyOccupied = false;
+    enemyOccupied = false;
+    
     closestEnemy = null;
-    gameSettings = Camera.main.GetComponent<GameSettings>();
+    
     if (this.gameObject.tag == "P1")
     {
       direction = Vector2.right;
@@ -80,18 +86,11 @@ public abstract class BaseMovement : MonoBehaviour
     this.UnitMove(hasAllyInFront, hasEnemyInFront);
   }
 
-  void OnDrawGizmosSelected() //Drawing Gizmos
-  {
-    if (attackPoint == null)
-    {
-      return;
-    }
-    Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-  }
+ 
 
   protected bool HasAllyInFront()
   {
-    float directionValue = GetDirectionValue();
+    float directionValue = GetDirectionValue(); //Direction can also be get directly in the variables, Direction.x (Units uses the same scripts but never the get the components)
     RaycastHit2D allyHit = Physics2D.Raycast(
       allyRaycastObject.transform.position,
       direction * new Vector2(directionValue, 0f),
@@ -130,7 +129,7 @@ public abstract class BaseMovement : MonoBehaviour
       Debug.DrawRay(
         enemyRaycastObject.transform.position,
         direction * enemyHit.distance * new Vector2(directionValue, 0f),
-        Color.green
+        Color.blue
       );
     }
 
@@ -144,42 +143,55 @@ public abstract class BaseMovement : MonoBehaviour
 
     if (hasAllyInFront)
     {
+      unitAnimator.ResetTrigger("Walk");
       currentMoveSpeed = 0f;
       rb.velocity = new Vector2(this.currentMoveSpeed, 0f);
+
       return;
     }
 
     if (hasEnemyInFront)
     {
+      unitAnimator.ResetTrigger("Walk");
       currentMoveSpeed = 0f;
       rb.velocity = new Vector2(this.currentMoveSpeed, 0f);
-      MeleeAttack();
+      if(LayerMask.LayerToName(this.gameObject.layer) != "ArcherChampion") // Working on it
+      {
+        MeleeAttack();
+      }
+      
       return;
     }
-
-    unitAnimator.SetTrigger("Walk");
-
-    float directionValue = GetDirectionValue();
-    this.currentMoveSpeed = moveSpeed * directionValue;
-    rb.velocity = new Vector2(this.currentMoveSpeed, 0f);
-  }
-
-  void MeleeAttack()
-  {
-    closestEnemy = GetClosestEnemy();
-    attackCooldownTimer -= Time.deltaTime;
-    if (attackCooldownTimer < 0.0f)
-    {
-      attackCooldownTimer = attackCooldownTime;
-      unitAnimator.SetTrigger("Attack");
-      sourceForMelee.PlayOneShot(clip);
-      closestEnemy.GetComponent<DamageScript>().DamageDealt(21);
-    }
+  
+      unitAnimator.SetTrigger("Walk");
+      float directionValue = GetDirectionValue();
+      this.currentMoveSpeed = moveSpeed * directionValue;
+      rb.velocity = new Vector2(this.currentMoveSpeed, 0f); 
   }
 
   public float GetDirectionValue()
   {
     return direction.x;
+  }
+
+  void MeleeAttack()
+  {
+    if(attackAvailable)
+    {
+      unitAnimator.ResetTrigger("Attack");
+      unitAnimator.SetTrigger("Attack");
+      attackCooldownTimer = attackCooldownTime;
+      
+      attackAvailable = false;
+    }
+    closestEnemy = GetClosestEnemy();
+    attackCooldownTimer -= Time.deltaTime;
+    if (attackCooldownTimer < 0.0f)
+    {
+      attackAvailable = true;
+      sourceForMelee.PlayOneShot(meleeClip);
+      closestEnemy.GetComponent<DamageScript>().DamageDealt(meleeDamage);
+    }
   }
 
   public GameObject GetClosestEnemy()
@@ -202,5 +214,13 @@ public abstract class BaseMovement : MonoBehaviour
       }
     }
     return closestGameObject;
+  }
+  void OnDrawGizmosSelected() //Drawing Gizmos
+  {
+    if (attackPoint == null)
+    {
+      return;
+    }
+    Gizmos.DrawWireSphere(attackPoint.position, attackRange);
   }
 }

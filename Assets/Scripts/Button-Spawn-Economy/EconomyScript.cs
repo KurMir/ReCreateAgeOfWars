@@ -41,7 +41,7 @@ public class EconomyScript : MonoBehaviour
     playerCoinText.text = playerMoney.ToString();
     playerExpText.text = PlayerExp.ToString();
     enemyMoney = 150;
-    Time.timeScale = 2.0f;
+    //Removed Timescale increase for better Time.Deltatime scaling 
   }
 
   void Update()
