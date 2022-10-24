@@ -1054,10 +1054,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expDrop: 0
   coinDrop: 0
-  healthPoints: 18000
+  healthPoints: 350
   maxHealth: 0
   unitName: Archer Enemy
-  healthbar: {fileID: 0}
 --- !u!114 &8668547106839694092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1094,6 +1093,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   allyLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  allyLayerMaskGet:
     serializedVersion: 2
     m_Bits: 0
   closestEnemy: {fileID: 0}

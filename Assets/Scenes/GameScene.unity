@@ -2079,7 +2079,7 @@ GameObject:
   - component: {fileID: 727492661}
   - component: {fileID: 727492663}
   - component: {fileID: 727492664}
-  m_Layer: 6
+  m_Layer: 13
   m_Name: PlayerBase
   m_TagString: P1
   m_Icon: {fileID: 0}
@@ -4896,6 +4896,7 @@ GameObject:
   - component: {fileID: 1467367015}
   - component: {fileID: 1467367014}
   - component: {fileID: 1467367013}
+  - component: {fileID: 1467367017}
   m_Layer: 5
   m_Name: CanvasPlayer
   m_TagString: Untagged
@@ -4988,6 +4989,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1467367017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467367012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00f1c1c49a6142db9e1d5a43f6c4fd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageScript: {fileID: 2587086301731021903}
+  heroHP: {fileID: 654301830}
 --- !u!1 &1515953458
 GameObject:
   m_ObjectHideFlags: 0
@@ -5925,7 +5940,7 @@ GameObject:
   - component: {fileID: 2052118899}
   - component: {fileID: 2052118900}
   - component: {fileID: 2052118901}
-  m_Layer: 3
+  m_Layer: 14
   m_Name: EnemyBase
   m_TagString: P2
   m_Icon: {fileID: 0}
@@ -6878,6 +6893,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4636578060352322917, guid: 3e90f58e288584c599132c115d221373, type: 3}
+      propertyPath: gameSettings
+      value: 
+      objectReference: {fileID: 519420035}
+    - target: {fileID: 4636578060352322917, guid: 3e90f58e288584c599132c115d221373, type: 3}
+      propertyPath: enemyLayerMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4636578060352322918, guid: 3e90f58e288584c599132c115d221373, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -7036,6 +7059,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 757821155}
     m_Modifications:
+    - target: {fileID: 165956291173495149, guid: 6b9c06dd57ac44b27829c54ee20f31fe, type: 3}
+      propertyPath: gameSettings
+      value: 
+      objectReference: {fileID: 519420035}
+    - target: {fileID: 165956291173495149, guid: 6b9c06dd57ac44b27829c54ee20f31fe, type: 3}
+      propertyPath: enemyLayerMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 165956291173495150, guid: 6b9c06dd57ac44b27829c54ee20f31fe, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -7115,8 +7146,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 757821155}
     m_Modifications:
     - target: {fileID: 244859088781816404, guid: dce40b3e69c384d83a235c13ab483a73, type: 3}
+      propertyPath: gameSettings
+      value: 
+      objectReference: {fileID: 519420035}
+    - target: {fileID: 244859088781816404, guid: dce40b3e69c384d83a235c13ab483a73, type: 3}
       propertyPath: enemyLayerMask.m_Bits
-      value: 4160
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 244859088781816406, guid: dce40b3e69c384d83a235c13ab483a73, type: 3}
       propertyPath: m_Name
@@ -7206,6 +7241,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 757821155}
     m_Modifications:
+    - target: {fileID: 237909719318709289, guid: a9d56eb6dd213411fb605bec0dd8c238, type: 3}
+      propertyPath: gameSettings
+      value: 
+      objectReference: {fileID: 519420035}
+    - target: {fileID: 237909719318709289, guid: a9d56eb6dd213411fb605bec0dd8c238, type: 3}
+      propertyPath: enemyLayerMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 237909719318709290, guid: a9d56eb6dd213411fb605bec0dd8c238, type: 3}
       propertyPath: m_RootOrder
       value: 1

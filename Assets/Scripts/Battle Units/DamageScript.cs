@@ -18,7 +18,6 @@ public class DamageScript : MonoBehaviour
     economyScript = findEconomy.GetComponent<EconomyScript>();
     maxHealth = healthPoints;
   }
-
   public void DamageDealt(float damage)
   {
     healthPoints -= damage;
@@ -28,7 +27,14 @@ public class DamageScript : MonoBehaviour
       economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
       Destroy(gameObject);
     }
-
+  }
+  public float GetMaxHealthPoints()
+  {
+    return maxHealth;
+  }
+  public float GetHealthPoints()
+  {
+    return healthPoints;
   }
   public string UnitName()
   {

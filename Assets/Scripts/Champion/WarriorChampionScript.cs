@@ -7,11 +7,7 @@ using UnityEngine;
 public class WarriorChampionScript : BaseMovement
 {
   [Header("WarriorChampion Settings")]
-
   public float inputValue = 1;
-  private float baseDamage;
-  private float baseDefence;
-
   public TMP_Text EnemyName;
   public LayerMask ownBase;
   public float baseDistanceInput;
@@ -27,8 +23,6 @@ public class WarriorChampionScript : BaseMovement
     bool hasEnemyInFront = HasEnemyInFront();
     this.UnitMove(hasAllyInFront, hasEnemyInFront);
     IsLookingAtBase();
-
-
   }
 
   void DetectInputs()

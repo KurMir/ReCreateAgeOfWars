@@ -8,8 +8,9 @@ public class TowerScript : MonoBehaviour
   public float shootTime = 1;
   public float shootTimer;
   public float bulletForce;
-  Vector2 Direction;
+  Vector2 direction;
   [Header("GameObjects and Transforms")]
+  public GameSettings gameSettings;
   public GameObject bullet;
   public Transform DetectEnemy;
   public Transform AttackPoint;
@@ -22,6 +23,15 @@ public class TowerScript : MonoBehaviour
   {
     shootTimer = 0;
     closestEnemy = null;
+    gameSettings.GetComponent<GameSettings>();
+    if (this.gameObject.tag == "P1")
+    {
+      enemyLayerMask = gameSettings.enemyLayerMask;
+    }
+    if (this.gameObject.tag == "P2")
+    {
+      enemyLayerMask = gameSettings.allyLayerMask;
+    }
   }
 
   void Update()
@@ -38,9 +48,9 @@ public class TowerScript : MonoBehaviour
       if (shootTimer <= 0.0f)
       {
         shootTimer = shootTime;
-        Direction = closestEnemy.GetComponent<Rigidbody2D>().position - (Vector2)AttackPoint.position;
+        direction = closestEnemy.GetComponent<Rigidbody2D>().position - (Vector2)AttackPoint.position;
         GameObject bulletShoot = Instantiate(bullet, AttackPoint.position, Quaternion.identity);
-        bulletShoot.GetComponent<Rigidbody2D>().AddForce(Direction * bulletForce);
+        bulletShoot.GetComponent<Rigidbody2D>().AddForce(direction * bulletForce);
       }
     }
   }
