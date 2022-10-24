@@ -11,32 +11,24 @@ public class DamageScript : MonoBehaviour
   [SerializeField] private float healthPoints;
   [SerializeField] private float maxHealth;
   [SerializeField] private string unitName;
-  public HealthbarBehaviour healthbar;
 
   void Start()
   {
     findEconomy = GameObject.FindWithTag("EconomyFind");
     economyScript = findEconomy.GetComponent<EconomyScript>();
     maxHealth = healthPoints;
-    healthbar.SetHealth(healthPoints, maxHealth);
   }
 
   public void DamageDealt(float damage)
   {
     healthPoints -= damage;
-    healthbar.SetHealth(healthPoints, maxHealth);
+
     if (healthPoints <= 0)
     {
-      if (this.gameObject.tag == "Base")
-      {
-        Time.timeScale = 0; //Set winning
-      }
-      else
-      {
-        economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
-        Destroy(gameObject);
-      }
+      economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
+      Destroy(gameObject);
     }
+
   }
   public string UnitName()
   {

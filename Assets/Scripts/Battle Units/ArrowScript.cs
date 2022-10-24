@@ -33,12 +33,12 @@ public class ArrowScript : MonoBehaviour
   {
     if (this.gameObject.tag == "Arrow1" && other.tag == "P2")
     {
-      other.gameObject.GetComponent<DamageScript>().DamageDealt(10);
+      other.gameObject.GetComponent<DamageScript>().DamageDealt(30);
       Destroy(gameObject);
     }
     if (this.gameObject.tag == "Arrow2" && other.tag == "P1")
     {
-      other.gameObject.GetComponent<DamageScript>().DamageDealt(10);
+      other.gameObject.GetComponent<DamageScript>().DamageDealt(30);
       Destroy(gameObject);
     }
   }

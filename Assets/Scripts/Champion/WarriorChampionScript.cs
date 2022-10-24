@@ -28,7 +28,7 @@ public class WarriorChampionScript : BaseMovement
     this.UnitMove(hasAllyInFront, hasEnemyInFront);
     IsLookingAtBase();
 
-    
+
   }
 
   void DetectInputs()
@@ -50,14 +50,12 @@ public class WarriorChampionScript : BaseMovement
       if (direction == Vector2.left)
       {
         baseDistance = -baseDistanceInput;
-        // enemyRayDistance = -enemyDistance;
         transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
       }
       else
       {
         baseDistance = baseDistanceInput;
-        // enemyRayDistance = enemyDistance;
-        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
       }
     }
   }
@@ -81,6 +79,7 @@ public class WarriorChampionScript : BaseMovement
         direction * ownBaseHit.distance * new Vector2(directionValue, 0f),
         Color.blue
       );
+      currentMoveSpeed = 0f;
     }
 
     return isLookingAtBase;

@@ -9,12 +9,12 @@ public abstract class BaseMovement : MonoBehaviour
 {
   [Header("Unit Settings")]
   public bool attackAvailable;
-  public float attackCooldownTime = 1.0f; 
+  public float attackCooldownTime = 1.0f;
   public float attackCooldownTimer = 0f;
   public bool allyOccupied;
   public bool enemyOccupied;
   public float currentMoveSpeed = 0.0f;
-  public float moveSpeed = 0.1f;
+  public float moveSpeed = 3f;
   public float meleeDamage = 15.0f;
   public Vector2 direction;
 
@@ -39,18 +39,19 @@ public abstract class BaseMovement : MonoBehaviour
   public LayerMask enemyLayerMask;
 
   public LayerMask allyLayerMask;
+  public LayerMask allyLayerMaskGet;
 
   public GameObject closestEnemy;
 
   protected Rigidbody2D rb;
 
-  public void Awake() 
+  public void Awake()
   {
     unitAnimator = unitGameObject.GetComponent<Animator>();
-    gameSettings = Camera.main.GetComponent<GameSettings>();
-    rb = this.gameObject.GetComponent<Rigidbody2D>(); 
+    gameSettings.GetComponent<GameSettings>();
+    rb = this.gameObject.GetComponent<Rigidbody2D>();
     rb.constraints = RigidbodyConstraints2D.FreezePositionY;
-    
+
   }
 
   public void Start()
@@ -59,9 +60,9 @@ public abstract class BaseMovement : MonoBehaviour
     attackCooldownTimer = 0f;
     allyOccupied = false;
     enemyOccupied = false;
-    
+
     closestEnemy = null;
-    
+
     if (this.gameObject.tag == "P1")
     {
       direction = Vector2.right;
@@ -86,7 +87,7 @@ public abstract class BaseMovement : MonoBehaviour
     this.UnitMove(hasAllyInFront, hasEnemyInFront);
   }
 
- 
+
 
   protected bool HasAllyInFront()
   {
@@ -102,11 +103,24 @@ public abstract class BaseMovement : MonoBehaviour
 
     if (hasAllyInFront)
     {
+      if (LayerMask.LayerToName(allyHit.collider.gameObject.layer).Equals("TowerEnemy") || LayerMask.LayerToName(allyHit.collider.gameObject.layer).Equals("TowerPlayer"))
+      {
+        hasAllyInFront = false;
+      }
+    }
+
+    if (hasAllyInFront)
+    {
       Debug.DrawRay(
         allyRaycastObject.transform.position,
         direction * allyHit.distance * new Vector2(directionValue, 0f),
         Color.blue
       );
+    }
+
+    if (LayerMask.LayerToName(this.gameObject.layer).Equals("HeroPlayer") || LayerMask.LayerToName(this.gameObject.layer).Equals("HeroPlayer"))
+    {
+      hasAllyInFront = false;
     }
 
     return hasAllyInFront;
@@ -155,18 +169,18 @@ public abstract class BaseMovement : MonoBehaviour
       unitAnimator.ResetTrigger("Walk");
       currentMoveSpeed = 0f;
       rb.velocity = new Vector2(this.currentMoveSpeed, 0f);
-      if(LayerMask.LayerToName(this.gameObject.layer) != "ArcherChampion") // Working on it
+      if (LayerMask.LayerToName(this.gameObject.layer) != "ArcherChampion") // Working on it
       {
         MeleeAttack();
       }
-      
+
       return;
     }
-  
-      unitAnimator.SetTrigger("Walk");
-      float directionValue = GetDirectionValue();
-      this.currentMoveSpeed = moveSpeed * directionValue;
-      rb.velocity = new Vector2(this.currentMoveSpeed, 0f); 
+
+    unitAnimator.SetTrigger("Walk");
+    float directionValue = GetDirectionValue();
+    this.currentMoveSpeed = moveSpeed * directionValue;
+    rb.velocity = new Vector2(this.currentMoveSpeed, 0f);
   }
 
   public float GetDirectionValue()
@@ -176,12 +190,12 @@ public abstract class BaseMovement : MonoBehaviour
 
   void MeleeAttack()
   {
-    if(attackAvailable)
+    if (attackAvailable)
     {
       unitAnimator.ResetTrigger("Attack");
       unitAnimator.SetTrigger("Attack");
       attackCooldownTimer = attackCooldownTime;
-      
+
       attackAvailable = false;
     }
     closestEnemy = GetClosestEnemy();
