@@ -53,6 +53,60 @@ public class WarriorChampionScript : BaseMovement
       }
     }
   }
+  new protected void UnitMove(bool hasAllyInFront, bool hasEnemyInFront)
+  {
+    allyOccupied = hasAllyInFront;
+    enemyOccupied = hasEnemyInFront;
+
+    if (hasAllyInFront)
+    {
+      unitAnimator.ResetTrigger("Walk");
+      currentMoveSpeed = 0f;
+      rb.velocity = new Vector2(this.currentMoveSpeed, 0f);
+
+      return;
+    }
+
+    if (hasEnemyInFront)
+    {
+      unitAnimator.ResetTrigger("Walk");
+      currentMoveSpeed = 0f;
+      rb.velocity = new Vector2(this.currentMoveSpeed, 0f);
+      if (LayerMask.LayerToName(this.gameObject.layer) != "ArcherChampion") // Working on it
+      {
+        MeleeAttack();
+      }
+
+      return;
+    }
+
+    unitAnimator.SetTrigger("Walk");
+    float directionValue = GetDirectionValue();
+    this.currentMoveSpeed = (IsLookingAtBase()) ? 0f :moveSpeed * directionValue;
+    rb.velocity = new Vector2(this.currentMoveSpeed, 0f);
+  }
+
+  new public void MeleeAttack()
+  {
+    if (attackAvailable)
+    {
+      unitAnimator.ResetTrigger("Attack");
+      int randomSummon = Random.Range(0, 2);
+      if(randomSummon == 0){  unitAnimator.SetTrigger("Attack"); }
+      if(randomSummon == 1){  unitAnimator.SetTrigger("Attack2"); }
+      
+      attackCooldownTimer = attackCooldownTime;
+      attackAvailable = false;
+    }
+    closestEnemy = GetClosestEnemy();
+    attackCooldownTimer -= Time.deltaTime;
+    if (attackCooldownTimer < 0.0f)
+    {
+      attackAvailable = true;
+      sourceForMelee.PlayOneShot(meleeClip);
+      closestEnemy.GetComponent<DamageScript>().DamageDealt(meleeDamage);
+    }
+  }
 
   bool IsLookingAtBase()
   {
@@ -68,12 +122,14 @@ public class WarriorChampionScript : BaseMovement
 
     if (isLookingAtBase)
     {
+     if(this.gameObject.tag == "P1") { ownBaseHit.distance = -ownBaseHit.distance; }
       Debug.DrawRay(
         enemyRaycastObject.transform.position,
         direction * ownBaseHit.distance * new Vector2(directionValue, 0f),
         Color.blue
       );
-      currentMoveSpeed = 0f;
+     
+      Debug.Log("Base Hit");
     }
 
     return isLookingAtBase;

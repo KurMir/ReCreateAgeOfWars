@@ -5,7 +5,8 @@ using UnityEngine;
 public class SpawnScript : MonoBehaviour
 {
   [SerializeField] private List<GameObject> spawns = new List<GameObject>();
-  [SerializeField] private float autoGenTime = 2f; // summons random every 8 sec
+  [SerializeField] private float autoGenTime = 3.5f; // summons random every 8 sec
+  [SerializeField] private GameObject heroSpawn;
   private float autoGenTimer;
   private GameObject economyScriptObject;
   private EconomyScript economyScript;
@@ -13,7 +14,17 @@ public class SpawnScript : MonoBehaviour
 
   void Start()
   {
-    economyScriptObject = GameObject.Find("Economy");
+    if(this.gameObject.tag == "Spawn1")
+    {
+      Instantiate(heroSpawn, this.transform.position, Quaternion.Euler(0f, 0f, 0f));
+
+      GameObject championScriptGameObject = GameObject.FindWithTag("ChampionUIFind");
+      ChampionScriptUI championScriptUI = championScriptGameObject.GetComponent<ChampionScriptUI>();
+      championScriptUI.FindHeroChampion();
+      championScriptUI.SetStatus(true);
+    }
+    
+    economyScriptObject = GameObject.FindWithTag("EconomyFind");
     autoGenTimer = autoGenTime;
   }
   public void EnemyMoneyUpdate(int EnemyMoney)
@@ -23,7 +34,7 @@ public class SpawnScript : MonoBehaviour
 
   void Update()
   {
-    BotAutoSpawn(); //removed economyscript
+    BotAutoSpawn(); 
   }
 
   void BotAutoSpawn()

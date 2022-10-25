@@ -5,9 +5,9 @@ using UnityEngine;
 public class DamageScript : MonoBehaviour
 {
   private GameObject findEconomy;
-  EconomyScript economyScript;
-  [SerializeField] private int expDrop;
-  [SerializeField] private int coinDrop; // will optimize later updates for Heroes/Champions
+  private EconomyScript economyScript;
+  public int expDrop;
+  public int coinDrop; 
   [SerializeField] private float healthPoints;
   [SerializeField] private float maxHealth;
   [SerializeField] private string unitName;
@@ -17,6 +17,15 @@ public class DamageScript : MonoBehaviour
     findEconomy = GameObject.FindWithTag("EconomyFind");
     economyScript = findEconomy.GetComponent<EconomyScript>();
     maxHealth = healthPoints;
+    if (LayerMask.LayerToName(this.gameObject.layer).Equals("WarriorPlayer")) { expDrop = economyScript.WarriorExpDrop(); coinDrop = economyScript.WarriorCoinDrop(); }
+    if (LayerMask.LayerToName(this.gameObject.layer).Equals("WarriorEnemy")) { expDrop = economyScript.WarriorExpDrop(); coinDrop = economyScript.WarriorCoinDrop(); }
+    if (LayerMask.LayerToName(this.gameObject.layer).Equals("ArcherPlayer")) { expDrop = economyScript.ArcherExpDrops(); coinDrop = economyScript.ArcherCoinDrop(); }
+    if (LayerMask.LayerToName(this.gameObject.layer).Equals("ArcherEnemy")) { expDrop = economyScript.ArcherExpDrops(); coinDrop = economyScript.ArcherCoinDrop(); }
+    if (LayerMask.LayerToName(this.gameObject.layer).Equals("SpearmanPlayer")) { expDrop = economyScript.SpearmanExpDrop(); coinDrop = economyScript.SpearmanCoinDrop(); }
+    if (LayerMask.LayerToName(this.gameObject.layer).Equals("SpearmanEnemy")) { expDrop = economyScript.SpearmanExpDrop(); coinDrop = economyScript.SpearmanCoinDrop(); }
+    if (LayerMask.LayerToName(this.gameObject.layer).Equals("HeroPlayer")) { expDrop = 450; coinDrop = 350; }
+    if (LayerMask.LayerToName(this.gameObject.layer).Equals("HeroEnemy")) { expDrop = 450; coinDrop = 350; }
+    
   }
   public void DamageDealt(float damage)
   {
@@ -24,8 +33,22 @@ public class DamageScript : MonoBehaviour
 
     if (healthPoints <= 0)
     {
-      economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
-      Destroy(gameObject);
+      if(LayerMask.LayerToName(this.gameObject.layer).Equals("HeroPlayer"))
+      {
+        GameObject championScriptGameObject = GameObject.FindWithTag("ChampionUiFind");
+        ChampionScriptUI championScriptUI = championScriptGameObject.GetComponent<ChampionScriptUI>();
+        championScriptUI.SetStatus(false);
+        
+        
+        economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
+        Destroy(gameObject);
+      }
+      else 
+      {
+        economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
+        Destroy(gameObject);
+      }
+      
     }
   }
   public float GetMaxHealthPoints()
@@ -40,4 +63,5 @@ public class DamageScript : MonoBehaviour
   {
     return unitName;
   }
+
 }

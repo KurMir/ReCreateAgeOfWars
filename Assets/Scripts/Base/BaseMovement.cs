@@ -150,6 +150,8 @@ public abstract class BaseMovement : MonoBehaviour
     return hasEnemyInFront;
   }
 
+
+
   protected void UnitMove(bool hasAllyInFront, bool hasEnemyInFront)
   {
     allyOccupied = hasAllyInFront;
@@ -188,7 +190,7 @@ public abstract class BaseMovement : MonoBehaviour
     return direction.x;
   }
 
-  void MeleeAttack()
+  public void MeleeAttack()
   {
     if (attackAvailable)
     {
@@ -234,6 +236,7 @@ public abstract class BaseMovement : MonoBehaviour
     if (attackPoint == null)
     {
       return;
+      
     }
     Gizmos.DrawWireSphere(attackPoint.position, attackRange);
   }

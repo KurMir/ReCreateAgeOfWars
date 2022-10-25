@@ -17,6 +17,7 @@ TagManager:
   - TowerBulletPlayer2
   - TowerBulletEnemy1
   - TowerBulletEnemy2
+  - ChampionUIFind
   layers:
   - Default
   - TransparentFX
@@ -39,8 +40,8 @@ TagManager:
   - WarriorPlayer
   - SpearmanEnemy
   - SpearmanPlayer
-  - 
-  - 
+  - FountainPlayer
+  - FountainEnemy
   - 
   - 
   - 
