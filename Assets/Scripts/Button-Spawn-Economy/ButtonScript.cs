@@ -21,7 +21,7 @@ public class ButtonScript : MonoBehaviour
   private int playerCoin;
   private int[] ArrayQueue = new int[4];
   private int count;
-  private bool isFull()
+  public bool isFull()
   {
     count = 0;
     for (int i = 0; i < ArrayQueue.Length; i++)
@@ -68,25 +68,37 @@ public class ButtonScript : MonoBehaviour
   {
     playerCoin = economyScript.GetComponent<EconomyScript>().getPlayerMoney();
     if (playerCoin > 14)
-      if (isFull() == false) // if queue is not full, add code later for effects
+    {
+      if (isFull() == false)
+      {
         economyScript.GetComponent<EconomyScript>().setPlayerMoney(playerCoin -= 15);
-    AddQueue(0);
+        AddQueue(0);
+      } // if queue is not full, add code later for effects
+    }
   }
   public void SpawnArcher()
   {
     playerCoin = economyScript.GetComponent<EconomyScript>().getPlayerMoney();
     if (playerCoin > 29)
-      if (isFull() == false) // if queue is not full, add code later for effects
+    {
+      if (isFull() == false)
+      {
         economyScript.GetComponent<EconomyScript>().setPlayerMoney(playerCoin -= 30);
-    AddQueue(1);
+        AddQueue(1);
+      } // if queue is not full, add code later for effects
+    }
   }
   public void SpawnSpearman()
   {
     playerCoin = economyScript.GetComponent<EconomyScript>().getPlayerMoney();
     if (playerCoin > 49)
-      if (isFull() == false) // if queue is not full, add code later for effects
+    {
+      if (isFull() == false)
+      {
         economyScript.GetComponent<EconomyScript>().setPlayerMoney(playerCoin -= 50);
-    AddQueue(2);
+        AddQueue(2);
+      } // if queue is not full, add code later for effects
+    }
   }
   public void WarriorSkillSmash()
   {

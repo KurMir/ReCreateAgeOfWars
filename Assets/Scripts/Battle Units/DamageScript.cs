@@ -7,7 +7,7 @@ public class DamageScript : MonoBehaviour
   private GameObject findEconomy;
   private EconomyScript economyScript;
   public int expDrop;
-  public int coinDrop; 
+  public int coinDrop;
   [SerializeField] private float healthPoints;
   [SerializeField] private float maxHealth;
   [SerializeField] private string unitName;
@@ -25,7 +25,7 @@ public class DamageScript : MonoBehaviour
     if (LayerMask.LayerToName(this.gameObject.layer).Equals("SpearmanEnemy")) { expDrop = economyScript.SpearmanExpDrop(); coinDrop = economyScript.SpearmanCoinDrop(); }
     if (LayerMask.LayerToName(this.gameObject.layer).Equals("HeroPlayer")) { expDrop = 450; coinDrop = 350; }
     if (LayerMask.LayerToName(this.gameObject.layer).Equals("HeroEnemy")) { expDrop = 450; coinDrop = 350; }
-    
+
   }
   public void DamageDealt(float damage)
   {
@@ -33,22 +33,27 @@ public class DamageScript : MonoBehaviour
 
     if (healthPoints <= 0)
     {
-      if(LayerMask.LayerToName(this.gameObject.layer).Equals("HeroPlayer"))
+      if (LayerMask.LayerToName(this.gameObject.layer).Equals("HeroPlayer"))
       {
-        GameObject championScriptGameObject = GameObject.FindWithTag("ChampionUiFind");
+        GameObject championScriptGameObject = GameObject.FindWithTag("ChampionUIFind");
         ChampionScriptUI championScriptUI = championScriptGameObject.GetComponent<ChampionScriptUI>();
         championScriptUI.SetStatus(false);
-        
-        
         economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
+
+        GameObject spawn1GameObject = GameObject.FindWithTag("Spawn1");
+        SpawnScript spawnScript = spawn1GameObject.GetComponent<SpawnScript>();
+        spawnScript.HeroStatus(true);
+
+
         Destroy(gameObject);
       }
-      else 
+      else
       {
         economyScript.GetComponent<EconomyScript>().Drops(expDrop, coinDrop, this.gameObject.tag);
+
         Destroy(gameObject);
       }
-      
+
     }
   }
   public float GetMaxHealthPoints()

@@ -8,7 +8,7 @@ public class ChampionScriptUI : MonoBehaviour
 {
   GameObject[] findHeroChampion;
   public GameObject myHeroChampion;
-  DamageScript damageScript;
+
   [SerializeField] private Image heroHP;
   [SerializeField] private Image heroMp;
   [SerializeField] private TMP_Text heroHPText;
@@ -16,21 +16,23 @@ public class ChampionScriptUI : MonoBehaviour
   [SerializeField] private TMP_Text heroNameText;
   [SerializeField] private TMP_Text heroLevelText;
   [SerializeField] private string heroName;
-  private string heroLevel;
-  private bool isChampionAlive;
+  private int heroLevel;
+  public bool isChampionAlive;
+  public float health;
 
   void Start()
   {
-    isChampionAlive = false;
+    heroHP.fillAmount = 1f;
+    isChampionAlive = true;
   }
 
   public void FindHeroChampion()
   {
     findHeroChampion = GameObject.FindGameObjectsWithTag("P1");
 
-    foreach(GameObject gameObject in findHeroChampion)
+    foreach (GameObject gameObject in findHeroChampion)
     {
-      if(LayerMask.LayerToName(gameObject.layer).Equals("HeroPlayer"))
+      if (LayerMask.LayerToName(gameObject.layer).Equals("HeroPlayer"))
       {
         myHeroChampion = gameObject;
       }
@@ -42,14 +44,31 @@ public class ChampionScriptUI : MonoBehaviour
     isChampionAlive = status;
   }
 
+  public void SetLevel(int heroLevel)
+  {
+    this.heroLevel = heroLevel;
+  }
+
   void Update()
   {
-    if(isChampionAlive)
+
+    if (isChampionAlive)
     {
-      //damageScript = myHeroChampion.GetComponent<DamageScript>();
-      //heroHP.fillAmount = damageScript.GetHealthPoints() / damageScript.GetMaxHealthPoints();
-      
-      //heroHPText.text = Mathf.RoundToInt(damageScript.GetHealthPoints()).ToString();
-    }    
+      if (myHeroChampion != null)
+      {
+        DamageScript damageScript = myHeroChampion.GetComponent<DamageScript>();
+        damageScript = myHeroChampion.GetComponent<DamageScript>();
+        health = damageScript.GetHealthPoints();
+        heroHP.fillAmount = damageScript.GetHealthPoints() / damageScript.GetMaxHealthPoints();
+        heroNameText.text = heroName;
+
+      }
+    }
   }
+
+  //
+
+  //heroHPText.text = Mathf.RoundToInt(damageScript.GetHealthPoints()).ToString();
+
 }
+

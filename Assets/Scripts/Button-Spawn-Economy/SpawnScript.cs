@@ -12,9 +12,14 @@ public class SpawnScript : MonoBehaviour
   private EconomyScript economyScript;
   public int EnemyMoney; //change to private later
 
+  public float heroSpawnTime = 50f;
+  public float heroSpawnTimer;
+  public bool isDead;
+
   void Start()
   {
-    if(this.gameObject.tag == "Spawn1")
+    heroSpawnTimer = 0f;
+    if (this.gameObject.tag == "Spawn1")
     {
       Instantiate(heroSpawn, this.transform.position, Quaternion.Euler(0f, 0f, 0f));
 
@@ -23,18 +28,49 @@ public class SpawnScript : MonoBehaviour
       championScriptUI.FindHeroChampion();
       championScriptUI.SetStatus(true);
     }
-    
+
     economyScriptObject = GameObject.FindWithTag("EconomyFind");
     autoGenTimer = autoGenTime;
   }
+  void Update()
+  {
+    BotAutoSpawn();
+    DeathTimer();
+  }
+
+  public void HeroStatus(bool isDead)
+  {
+    this.isDead = isDead;
+    heroSpawnTimer = heroSpawnTime;
+    GameObject championScriptGameObject = GameObject.FindWithTag("ChampionUIFind");
+    ChampionScriptUI championScriptUI = championScriptGameObject.GetComponent<ChampionScriptUI>();
+    championScriptUI.FindHeroChampion();
+    championScriptUI.SetStatus(false);
+  }
+
+  void DeathTimer()
+  {
+    if (isDead)
+    {
+      heroSpawnTimer -= Time.deltaTime;
+      if (heroSpawnTimer < 0.0f)
+      {
+        isDead = false;
+
+        Instantiate(heroSpawn, this.transform.position, Quaternion.Euler(0f, 0f, 0f));
+
+        GameObject championScriptGameObject = GameObject.FindWithTag("ChampionUIFind");
+        ChampionScriptUI championScriptUI = championScriptGameObject.GetComponent<ChampionScriptUI>();
+        championScriptUI.FindHeroChampion();
+        championScriptUI.SetStatus(true);
+      }
+    }
+  }
+
+
   public void EnemyMoneyUpdate(int EnemyMoney)
   {
     this.EnemyMoney = EnemyMoney;
-  }
-
-  void Update()
-  {
-    BotAutoSpawn(); 
   }
 
   void BotAutoSpawn()

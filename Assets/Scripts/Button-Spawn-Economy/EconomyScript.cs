@@ -6,12 +6,14 @@ using TMPro;
 
 public class EconomyScript : MonoBehaviour
 {
-
   [SerializeField] private TMP_Text playerCoinText;
   [SerializeField] private TMP_Text playerExpText;
   [SerializeField] private float spawnCoinsTime;
   [SerializeField] private int numberOfCoinsPerSpawnCoinsTime;
   public float spawnCoinsTimer;
+  private int playerExp;
+  private int enemyExp;
+  private int playerLevel = 1; // enemy level soon
   private int playerMoney;
   private int enemyMoney;
   private int currentArcherExpDrop = 50;
@@ -21,6 +23,7 @@ public class EconomyScript : MonoBehaviour
   private int currentSpearmanExpDrop = 75;
   private int currentSpearmanCoinDrop = 50;
 
+  public int playerNextLevelUp = 500;
   float increaseTime = 120;
   float increaseTimer;
 
@@ -41,8 +44,6 @@ public class EconomyScript : MonoBehaviour
     this.playerMoney = playerMoney;
     playerCoinText.text = this.playerMoney.ToString();
   }
-  public int PlayerExp;
-  public int EnemyExp;// soon
 
   void Start()
   {
@@ -50,7 +51,7 @@ public class EconomyScript : MonoBehaviour
     spawnCoinsTimer = spawnCoinsTime;
     playerMoney = 150;
     playerCoinText.text = playerMoney.ToString();
-    playerExpText.text = PlayerExp.ToString();
+    playerExpText.text = playerExp.ToString();
     enemyMoney = 150;
     //Removed Timescale increase for better Time.Deltatime/ Time counting 
   }
@@ -59,6 +60,8 @@ public class EconomyScript : MonoBehaviour
   {
     SpawnCoins();
   }
+
+
 
   void SpawnCoins()
   {
@@ -75,18 +78,27 @@ public class EconomyScript : MonoBehaviour
   {
     if (tag == "P2")
     {
-      Debug.Log("P2 Died");
+      Debug.Log("P2 Died, Coins: " + coins + " , Exp: " + exp);
       playerMoney += coins;
-      PlayerExp += exp;
+      playerExp += exp;
       playerCoinText.text = playerMoney.ToString();
-      playerExpText.text = PlayerExp.ToString();
+      playerExpText.text = playerExp.ToString();
+
+      if (playerExp >= playerNextLevelUp) { PlayerLevelUp(); }
+
     }
     if (tag == "P1")
     {
-      Debug.Log("P1 Died");
+      Debug.Log("P1 Died, Coins: " + coins + " , Exp: " + exp);
       enemyMoney += coins;
-      EnemyExp += exp;
+      enemyExp += exp;
     }
+  }
+
+  void PlayerLevelUp()
+  {
+    playerNextLevelUp = playerNextLevelUp + playerNextLevelUp * playerLevel;
+    playerLevel++;
   }
 
 
@@ -115,18 +127,18 @@ public class EconomyScript : MonoBehaviour
     return currentSpearmanCoinDrop;
   }
 
-   void IncreaseEconomy()
+  void IncreaseEconomy()
   {
     increaseTimer -= Time.deltaTime;
     if (increaseTimer <= 0.0f)
-    {   
+    {
       increaseTimer += increaseTime;
-      currentArcherExpDrop += 30;
-      currentArcherCoinDrop += 15;
+      currentArcherExpDrop += 40;
+      currentArcherCoinDrop += 20;
       currentWarriorExpDrop += 30;
       currentWarriorCoinDrop += 15;
-      currentSpearmanExpDrop += 30;
-      currentSpearmanCoinDrop += 15;
+      currentSpearmanExpDrop += 50;
+      currentSpearmanCoinDrop += 30;
     }
   }
 

@@ -149,7 +149,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30822783}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -161,8 +161,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 173, y: -2.4999986}
-  m_SizeDelta: {x: 774, y: 248}
+  m_AnchoredPosition: {x: 157.12201, y: 24.129013}
+  m_SizeDelta: {x: 922.171, y: 248}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &30822785
 MonoBehaviour:
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9528302, g: 0.06741722, b: 0.06741722, a: 0.90588236}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -297,6 +297,9 @@ MonoBehaviour:
   autoGenTime: 2
   heroSpawn: {fileID: 0}
   EnemyMoney: 0
+  heroSpawnTime: 25
+  heroSpawnTimer: 0
+  isDead: 0
 --- !u!1 &94278042
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,11 +337,11 @@ RectTransform:
   m_Father: {fileID: 1153112332}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000061035, y: -407.599}
-  m_SizeDelta: {x: 1920, y: 264.062}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -600, y: 0}
+  m_SizeDelta: {x: 3500, y: 650}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &94278044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,7 +405,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102881286}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -413,8 +416,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -143, y: -78}
-  m_SizeDelta: {x: 76, y: 76}
+  m_AnchoredPosition: {x: -178.29993, y: -154.25198}
+  m_SizeDelta: {x: 176.273, y: 163.029}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &102881288
 MonoBehaviour:
@@ -782,7 +785,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &299043898
 MonoBehaviour:
@@ -1088,7 +1091,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &395427181
 MonoBehaviour:
@@ -1616,7 +1619,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &567797981
 MonoBehaviour:
@@ -1885,8 +1888,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -72.80003, y: 43.5}
-  m_SizeDelta: {x: 426, y: 42}
+  m_AnchoredPosition: {x: 27.233, y: 67}
+  m_SizeDelta: {x: 712.315, y: 79.98}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &654301830
 MonoBehaviour:
@@ -2183,6 +2186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expDrop: 0
+  coinDrop: 0
   healthPoints: 3600
   maxHealth: 0
   unitName: 
@@ -2332,7 +2336,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 601, y: -18.292}
+  m_AnchoredPosition: {x: 100, y: -156}
   m_SizeDelta: {x: 200, y: 101.416}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &802963853
@@ -2382,8 +2386,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2487,7 +2491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &976682794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2495,18 +2499,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976682793}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.010260846, w: -0.99994737}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1435830478}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.176}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -214.90005, y: -1.9999979}
-  m_SizeDelta: {x: 192.9, y: 193.7}
+  m_AnchoredPosition: {x: -368.906, y: -0.000022172928}
+  m_SizeDelta: {x: 351.695, y: 374.372}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &976682795
 MonoBehaviour:
@@ -2603,8 +2607,9 @@ MonoBehaviour:
   - {fileID: 1619131745}
   - {fileID: 1226616026}
   Slider: {fileID: 2064770886}
-  queueTime: 7
+  queueTime: 2.5
   queueTimer: 0
+  testIsFull: 0
   isSkill1Cooldown: 0
   isSkill2Cooldown: 0
   skill1CooldownTime: 8
@@ -2677,6 +2682,9 @@ MonoBehaviour:
   autoGenTime: 8
   heroSpawn: {fileID: 3924692663003219744, guid: 2f916295412ba8841895f0e817d278ba, type: 3}
   EnemyMoney: 0
+  heroSpawnTime: 25
+  heroSpawnTimer: 0
+  isDead: 0
 --- !u!1 &1041189806
 GameObject:
   m_ObjectHideFlags: 0
@@ -2762,8 +2770,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3510,8 +3518,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 394, y: 221.75}
-  m_SizeDelta: {x: 1920, y: 1080.6091}
+  m_AnchoredPosition: {x: 480.49997, y: 270.5}
+  m_SizeDelta: {x: 2341.5, y: 1318.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1219192986
 GameObject:
@@ -3808,8 +3816,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3981,8 +3989,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 1281, y: 0.8710022}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1301123409
 MonoBehaviour:
@@ -4477,8 +4485,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 103.899994, y: 95.89997}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 134.00372, y: 166.64403}
+  m_SizeDelta: {x: 153.635, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1360269719
 MonoBehaviour:
@@ -4527,8 +4535,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4563,7 +4571,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -150.98253, y: 33.182964, z: -150.15291, w: 33.182987}
+  m_margin: {x: -150.98253, y: 5.199394, z: -150.15291, w: 33.182987}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4725,7 +4733,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1435830477}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4739,8 +4747,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -531.914, y: -6.422}
-  m_SizeDelta: {x: 788.277, y: 217.856}
+  m_AnchoredPosition: {x: -970.094, y: 0.8710022}
+  m_SizeDelta: {x: 1409.823, y: 514.57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1435830479
 MonoBehaviour:
@@ -5142,8 +5150,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5528,13 +5536,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myHeroChampion: {fileID: 0}
-  heroHP: {fileID: 0}
-  heroMp: {fileID: 0}
+  heroHP: {fileID: 654301830}
+  heroMp: {fileID: 2027702968}
   heroHPText: {fileID: 0}
   heroMPText: {fileID: 0}
-  heroNameText: {fileID: 0}
-  heroLevelText: {fileID: 0}
+  heroNameText: {fileID: 1360269719}
+  heroLevelText: {fileID: 1041189808}
   heroName: 
+  isChampionAlive: 0
+  health: 0
 --- !u!1 &1831628881
 GameObject:
   m_ObjectHideFlags: 0
@@ -5765,7 +5775,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1853306161
 CanvasRenderer:
@@ -5840,8 +5850,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -122.00003, y: -10.5}
-  m_SizeDelta: {x: 330, y: 26}
+  m_AnchoredPosition: {x: -69.042, y: -46.35101}
+  m_SizeDelta: {x: 519.766, y: 92.702}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2027702968
 MonoBehaviour:
@@ -6008,6 +6018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expDrop: 0
+  coinDrop: 0
   healthPoints: 3600
   maxHealth: 0
   unitName: 
@@ -6249,8 +6260,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 738, y: -6.708008}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2110893876
 MonoBehaviour:
@@ -6929,8 +6940,6 @@ MonoBehaviour:
   spawnCoinsTime: 60
   numberOfCoinsPerSpawnCoinsTime: 50
   spawnCoinsTimer: 0
-  PlayerExp: 0
-  EnemyExp: 0
 --- !u!4 &8933243687382407522
 Transform:
   m_ObjectHideFlags: 0
